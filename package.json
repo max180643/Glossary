@@ -18,6 +18,8 @@
     "@ui-kitten/eva-icons": "^5.0.0",
     "expo": "~39.0.2",
     "expo-constants": "~9.2.0",
+    "expo-localization": "~9.0.0",
+    "i18n-js": "^3.8.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",

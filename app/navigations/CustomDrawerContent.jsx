@@ -3,62 +3,68 @@ import { StyleSheet, View } from 'react-native';
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { Avatar, Text, Icon } from '@ui-kitten/components';
 import AvatarImage from '../assets/klee.png';
+import i18n from '../lang/i18n';
 
-const CustomDrawerContent = (props) => (
-  <View style={{ flex: 1 }}>
-    <DrawerContentScrollView {...props}>
-      <View style={styles.drawerContent}>
-        <View style={styles.userInfoSection}>
-          <View>
-            <Avatar style={styles.avatar} source={AvatarImage} />
-          </View>
-          <View style={styles.name}>
-            <Text category="h3">Klee</Text>
-          </View>
-          <View style={{ flex: 1, flexDirection: 'row' }}>
-            <View style={styles.total}>
-              <Text category="h6">Total</Text>
-              <Text category="s1">5</Text>
+const CustomDrawerContent = (props) => {
+  const { SwitchLanguage } = props;
+
+  return (
+    <View style={{ flex: 1 }}>
+      <DrawerContentScrollView {...props}>
+        <View style={styles.drawerContent}>
+          <View style={styles.userInfoSection}>
+            <View>
+              <Avatar style={styles.avatar} source={AvatarImage} />
             </View>
-            <View style={styles.like}>
-              <Text category="h6">Like</Text>
-              <Text category="s1">5</Text>
+            <View style={styles.name}>
+              <Text category="h3">Klee</Text>
+            </View>
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+              <View style={styles.total}>
+                <Text category="h6">Total</Text>
+                <Text category="s1">5</Text>
+              </View>
+              <View style={styles.like}>
+                <Text category="h6">Like</Text>
+                <Text category="s1">5</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.drawerSection}>
+            <View style={{}}>
+              <DrawerItemList {...props} />
+              <View style={styles.bottomDrawerSection}>
+                <DrawerItem
+                  label={i18n.t('Navigation.SwitchLanguage')}
+                  onPress={() => SwitchLanguage()}
+                  icon={({ color }) => (
+                    <Icon
+                      style={styles.icon}
+                      fill={color}
+                      name="globe-2"
+                    />
+                  )}
+                />
+              </View>
             </View>
           </View>
         </View>
-        <View style={styles.drawerSection}>
-          <View style={{}}>
-            <DrawerItemList {...props} />
-            <View style={styles.bottomDrawerSection}>
-              <DrawerItem
-                label="Switch language"
-                icon={({ color }) => (
-                  <Icon
-                    style={styles.icon}
-                    fill={color}
-                    name="globe-2"
-                  />
-                )}
-              />
-            </View>
-          </View>
-        </View>
+      </DrawerContentScrollView>
+      <View style={styles.bottomDrawerSection}>
+        <DrawerItem
+          label={i18n.t('Navigation.SignOut')}
+          icon={({ color }) => (
+            <Icon
+              style={styles.icon}
+              fill={color}
+              name="log-out"
+            />
+          )}
+        />
       </View>
-    </DrawerContentScrollView>
-    <View style={styles.bottomDrawerSection}>
-      <DrawerItem
-        label="Sign Out"
-        icon={({ color }) => (
-          <Icon
-            style={styles.icon}
-            fill={color}
-            name="log-out"
-          />
-        )}
-      />
     </View>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   drawerContent: {
