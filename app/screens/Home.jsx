@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import { useRecoilValue } from 'recoil';
-import { locate } from '../states/atom';
+import { Locate } from '../states/atom';
 import i18n from '../lang/i18n';
 
 const styles = StyleSheet.create({
@@ -14,10 +14,10 @@ const styles = StyleSheet.create({
 });
 
 const Home = () => {
-  const locateData = useRecoilValue(locate);
+  const LocateData = useRecoilValue(Locate);
 
   return (
-    <Layout style={styles.container} key={locateData}>
+    <Layout style={styles.container} locate={LocateData}>
       <Text>{i18n.t('Home.Title')}</Text>
     </Layout>
   );

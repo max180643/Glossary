@@ -1,19 +1,19 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useRecoilState } from 'recoil';
-import { locate } from '../states/atom';
+import { Locate } from '../states/atom';
 import CustomDrawerContent from './CustomDrawerContent';
 import MainStack from './MainStack';
-import CustomEvaIcon from '../components/CustomEvaIcon';
+import CustomEvaIcon from '../components/navigations/CustomEvaIcon';
 import i18n from '../lang/i18n';
 
 const Navigator = () => {
   const Drawer = createDrawerNavigator();
 
-  const [locateData, setLocateData] = useRecoilState(locate);
+  const [LocateData, setLocateData] = useRecoilState(Locate);
 
   const SwitchLanguage = () => {
-    const locateCode = locateData.split('-')[0];
+    const locateCode = LocateData.split('-')[0];
     if (locateCode === 'th') {
       setLocateData('en-US');
       i18n.locale = 'en-US';

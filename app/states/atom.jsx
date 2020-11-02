@@ -1,11 +1,11 @@
 import { atom } from 'recoil';
 import * as Localization from 'expo-localization';
 
-const defaultLocate = Localization.locale;
+const DefaultLocate = Localization.locale;
 
-export const locate = atom({
-  key: 'locateData',
-  default: defaultLocate,
+export const Locate = atom({
+  key: 'LocateData',
+  default: DefaultLocate,
 });
 
 export default 'atom';

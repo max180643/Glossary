@@ -2,11 +2,19 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { Avatar, Text, Icon } from '@ui-kitten/components';
-import AvatarImage from '../assets/klee.png';
+import { useRecoilValue } from 'recoil';
+import { IsLogin, UserName, UserPicture } from '../states/auth';
+import ProfileImage from '../assets/profile.png';
+import LoginButton from '../components/navigations/LoginButton';
+import LogoutButton from '../components/navigations/LogoutButton';
 import i18n from '../lang/i18n';
 
 const CustomDrawerContent = (props) => {
   const { SwitchLanguage } = props;
+
+  const IsLoginData = useRecoilValue(IsLogin);
+  const UserNameData = useRecoilValue(UserName);
+  const UserPictureData = useRecoilValue(UserPicture);
 
   return (
     <View style={{ flex: 1 }}>
@@ -14,21 +22,28 @@ const CustomDrawerContent = (props) => {
         <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>
             <View>
-              <Avatar style={styles.avatar} source={AvatarImage} />
+              <Avatar
+                style={styles.avatar}
+                source={UserPictureData ? { uri: UserPictureData } : ProfileImage}
+              />
             </View>
             <View style={styles.name}>
-              <Text category="h3">Klee</Text>
+              <Text category="h6" numberOfLines={1}>{UserNameData || i18n.t('Navigation.Name')}</Text>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-              <View style={styles.total}>
-                <Text category="h6">Total</Text>
-                <Text category="s1">5</Text>
+            {/* Show when user login. */}
+            {IsLoginData
+              && (
+              <View style={{ flex: 1, flexDirection: 'row' }}>
+                <View style={styles.total}>
+                  <Text category="h6">Total</Text>
+                  <Text category="s1">5</Text>
+                </View>
+                <View style={styles.like}>
+                  <Text category="h6">Like</Text>
+                  <Text category="s1">5</Text>
+                </View>
               </View>
-              <View style={styles.like}>
-                <Text category="h6">Like</Text>
-                <Text category="s1">5</Text>
-              </View>
-            </View>
+              )}
           </View>
           <View style={styles.drawerSection}>
             <View style={{}}>
@@ -51,16 +66,7 @@ const CustomDrawerContent = (props) => {
         </View>
       </DrawerContentScrollView>
       <View style={styles.bottomDrawerSection}>
-        <DrawerItem
-          label={i18n.t('Navigation.SignOut')}
-          icon={({ color }) => (
-            <Icon
-              style={styles.icon}
-              fill={color}
-              name="log-out"
-            />
-          )}
-        />
+        {IsLoginData ? <LogoutButton /> : <LoginButton />}
       </View>
     </View>
   );

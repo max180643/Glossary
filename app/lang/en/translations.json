@@ -1,9 +1,11 @@
 {
   "Navigation": {
     "Home": "Home",
+    "Name": "Guest",
     "MyGlossary": "My Glossary",
     "CreateNewGlossary": "Create new Glossary",
     "SwitchLanguage": "Switch language",
+    "SignIn": "Sign In",
     "SignOut": "Sign Out"
   },
   "Home": {

@@ -1,9 +1,11 @@
 {
   "Navigation": {
     "Home": "หน้าแรก",
+    "Name": "ผู้ใช้งานทั่วไป",
     "MyGlossary": "ชุดคำศัพท์ของฉัน",
     "CreateNewGlossary": "สร้างชุดคำศัพท์",
     "SwitchLanguage": "สลับภาษา",
+    "SignIn": "เข้าสู่ระบบ",
     "SignOut": "ออกจากระบบ"
   },
   "Home": {
