@@ -6,6 +6,7 @@ import CustomDrawerContent from './CustomDrawerContent';
 import MainStack from './MainStack';
 import CustomEvaIcon from '../components/navigations/CustomEvaIcon';
 import i18n from '../lang/i18n';
+import MyVocabStack from './MyVocabStack';
 
 const Navigator = () => {
   const Drawer = createDrawerNavigator();
@@ -26,7 +27,7 @@ const Navigator = () => {
   return (
     <Drawer.Navigator initialRouteName="Home" drawerContent={(props) => <CustomDrawerContent {...props} SwitchLanguage={SwitchLanguage} />}>
       <Drawer.Screen name="Home" component={MainStack} options={{ title: i18n.t('Navigation.Home'), drawerIcon: (props) => (<CustomEvaIcon data={{ ...props, name: 'home' }} />) }} />
-      <Drawer.Screen name="MyGlossary" component={MainStack} options={{ title: i18n.t('Navigation.MyGlossary'), drawerIcon: (props) => (<CustomEvaIcon data={{ ...props, name: 'book' }} />) }} />
+      <Drawer.Screen name="MyVocab" component={MyVocabStack} options={{ title: i18n.t('Navigation.MyGlossary'), drawerIcon: (props) => (<CustomEvaIcon data={{ ...props, name: 'book' }} />) }} />
       <Drawer.Screen name="CreateNewGlossary" component={MainStack} options={{ title: i18n.t('Navigation.CreateNewGlossary'), drawerIcon: (props) => (<CustomEvaIcon data={{ ...props, name: 'plus-square' }} />) }} />
     </Drawer.Navigator>
   );
