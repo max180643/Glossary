@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
-import { Layout } from '@ui-kitten/components';
+import { StyleSheet, ScrollView } from 'react-native';
+import { Layout, Input, Icon } from '@ui-kitten/components';
 import { useRecoilValue } from 'recoil';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Locate } from '../states/atom';
 import i18n from '../lang/i18n';
 import VocabList from '../components/Home/VocabList';
@@ -17,6 +18,22 @@ const Home = () => {
 
   return (
     <Layout style={styles.container} locate={LocateData}>
+      <Layout>
+        <Input
+          style={styles.inputSearch}
+          placeholder="Place your Text"
+          accessoryRight={() => (
+            <Icon
+              style={{
+                height: 22,
+                width: 22,
+              }}
+              fill="skyblue"
+              name="search"
+            />
+          )}
+        />
+      </Layout>
       <SegmentedControlTab
         tabsContainerStyle={styles.tabContainer}
         tabTextStyle={styles.tabTextStyle}
@@ -26,12 +43,18 @@ const Home = () => {
         selectedIndex={selectedIndex}
         onTabPress={handleIndexSelect}
       />
-      <Layout style={styles.listContain}>
-        <VocabList />
-        <VocabList />
-        <VocabList />
-        <VocabList />
-      </Layout>
+      <ScrollView>
+        <Layout style={styles.listContain}>
+          <VocabList />
+          <VocabList />
+          <VocabList />
+          <VocabList />
+          <VocabList />
+          <VocabList />
+          <VocabList />
+          <VocabList />
+        </Layout>
+      </ScrollView>
     </Layout>
   );
 };
@@ -51,12 +74,17 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   tabContainer: {
-    padding: 20,
+    width: wp('90%'),
+    padding: 10,
   },
   listContain: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
+  },
+  inputSearch: {
+    width: wp('90%'),
+    padding: 10,
   },
 });
 

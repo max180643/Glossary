@@ -21,6 +21,7 @@ const MainStack = (props) => {
         component={Home}
         options={{
           title: i18n.t('Home.Title'),
+          headerStyle: { backgroundColor: 'skyblue' },
           headerLeft: () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
               <Item

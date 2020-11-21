@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import IconImage from '../../assets/profile.png';
 
 const VocabList = () => (
-  <TouchableOpacity>
+  <TouchableOpacity delayPressIn={0}>
     <Layout style={styles.iconContain}>
       <Image
         style={styles.icon}
@@ -21,8 +22,8 @@ const VocabList = () => (
 
 const styles = StyleSheet.create({
   icon: {
-    height: 120,
-    width: 120,
+    height: hp('15%'),
+    width: wp('30%'),
     borderRadius: 10,
   },
   iconContain: {
