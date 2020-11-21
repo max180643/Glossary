@@ -8,4 +8,9 @@ export const Locate = atom({
   default: DefaultLocate,
 });
 
+export const Search = atom({
+  key: 'SearchData',
+  default: false,
+});
+
 export default 'atom';

@@ -3,8 +3,9 @@ import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import IconImage from '../../assets/profile.png';
+import EvaIcon from '../EvaIcon';
 
-const VocabList = () => (
+const VocabList = ({ item }) => (
   <TouchableOpacity delayPressIn={0}>
     <Layout style={styles.iconContain}>
       <Image
@@ -13,8 +14,11 @@ const VocabList = () => (
       />
     </Layout>
     <Layout style={styles.vocabText}>
-      <Text>VOCAB NAME</Text>
-      <Text>250</Text>
+      <Text numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
+      <Text>
+        <EvaIcon color="red" name="heart" size={15} />
+        <Text>{` ${item.like}`}</Text>
+      </Text>
     </Layout>
   </TouchableOpacity>
 
@@ -35,6 +39,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   vocabText: {
+    maxWidth: wp('40%') + 5,
     alignItems: 'center',
     padding: 10,
     marginLeft: 10,
