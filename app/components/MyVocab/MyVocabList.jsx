@@ -1,15 +1,15 @@
 import React from 'react';
-import { Layout, Icon } from '@ui-kitten/components';
+import { Layout } from '@ui-kitten/components';
 import {
   StyleSheet, Image, Text, TouchableOpacity,
 } from 'react-native';
-
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import IconImage from '../../assets/profile.png';
 import colors from '../../constants/colors';
 import EvaIcon from '../EvaIcon';
+import i18n from '../../lang/i18n';
 
-const MyVocabList = () => (
+const MyVocabList = ({ item }) => (
   <Layout style={styles.container}>
     <Layout style={styles.card}>
       <Layout style={styles.imageDetail}>
@@ -20,23 +20,22 @@ const MyVocabList = () => (
       </Layout>
       <Layout style={styles.textDetail}>
         <Layout style={styles.vocabName}>
-          <EvaIcon color={colors.primary} name="book-open-outline" size={22} style={{ marginRight: wp('2%') }} />
-          <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>TOEIC 2020</Text>
+          <EvaIcon color={colors.primary} name="book-open-outline" size={22} style={{ marginRight: wp('5%') }} />
+          <Text style={{ maxWidth: wp('48%'), fontSize: 18 }} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
         </Layout>
         <Layout style={styles.buttonDetail}>
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.textButton}>ลบ</Text>
+            <Text style={styles.textButton}>{i18n.t('MyVocab.Delete')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.textButton}>แก้ไข</Text>
+            <Text style={styles.textButton}>{i18n.t('MyVocab.Edit')}</Text>
           </TouchableOpacity>
         </Layout>
       </Layout>
-
     </Layout>
   </Layout>
-
 );
+
 const styles = StyleSheet.create({
   icon: {
     height: hp('15%'),
@@ -72,6 +71,8 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: 'center',
     borderRadius: 20,
+    maxWidth: wp('55%'),
+    minWidth: wp('55%'),
   },
   buttonDetail: {
     flexDirection: 'row',

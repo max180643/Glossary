@@ -9,6 +9,7 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import axios from 'axios';
+import Constants from 'expo-constants';
 import { Locate, Search } from '../states/atom';
 import i18n from '../lang/i18n';
 import VocabList from '../components/Home/VocabList';
@@ -32,7 +33,7 @@ const Home = () => {
 
   const handleRefresh = () => {
     setRefreshing(true);
-    axios.get(`${process.env.API_URL}/api/data/${category[selectedIndex]}`).then((res) => {
+    axios.get(`${Constants.manifest.extra.URL_API}/api/data/${category[selectedIndex]}`).then((res) => {
       setVocabData(res.data.response);
       setRefreshing(false);
     });
@@ -41,7 +42,7 @@ const Home = () => {
   const handleSearch = () => {
     setSearchData(false);
     setLoading(true);
-    axios.get(`${process.env.API_URL}/api/data/search?query=${SearchBox}&type=${category[selectedIndex]}`).then((res) => {
+    axios.get(`${Constants.manifest.extra.URL_API}/api/data/search?query=${SearchBox}&type=${category[selectedIndex]}`).then((res) => {
       setVocabData(res.data.response);
       setLoading(false);
       setSearchBox('');
@@ -49,7 +50,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    axios.get(`${process.env.API_URL}/api/data/${category[selectedIndex]}`).then((res) => {
+    axios.get(`${Constants.manifest.extra.URL_API}/api/data/${category[selectedIndex]}`).then((res) => {
       setVocabData(res.data.response);
       setLoading(false);
     });

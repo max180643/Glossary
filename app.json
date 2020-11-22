@@ -23,6 +23,9 @@
     },
     "android": {
       "package": "com.glossary"
+    },
+    "extra": {
+      "URL_API": "https://glossary-api.herokuapp.com"
     }
   }
 }

@@ -21,7 +21,7 @@ const MyVocabStack = (props) => {
         name="MyVocab"
         component={MyVocab}
         options={{
-          title: 'My Vocab',
+          title: i18n.t('MyVocab.Title'),
           headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>

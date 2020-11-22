@@ -15,5 +15,10 @@
     "Latest": "LATEST",
     "Search": "Search Glossary",
     "Empty": "Glossary not found"
+  },
+  "MyVocab": {
+    "Title": "My Glossary",
+    "Delete": "Delete",
+    "Edit": "Edit"
   }
 }
