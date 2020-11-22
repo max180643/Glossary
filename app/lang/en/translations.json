@@ -9,6 +9,9 @@
     "SignOut": "Sign Out"
   },
   "Home": {
-    "Title": "Home"
+    "Title": "Home",
+    "Top": "TOP",
+    "Official": "OFFICIAL",
+    "Latest": "LATEST"
   }
 }

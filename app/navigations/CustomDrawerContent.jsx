@@ -8,6 +8,7 @@ import ProfileImage from '../assets/profile.png';
 import LoginButton from '../components/navigations/LoginButton';
 import LogoutButton from '../components/navigations/LogoutButton';
 import i18n from '../lang/i18n';
+import colors from '../constants/colors';
 
 const CustomDrawerContent = (props) => {
   const { SwitchLanguage } = props;
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
   userInfoSection: {
     alignItems: 'center',
     padding: 20,
-    backgroundColor: 'skyblue',
+    backgroundColor: colors.primary,
   },
   name: {
     marginTop: 10,

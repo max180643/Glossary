@@ -5,6 +5,7 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import { Locate, Search } from '../states/atom';
 import CustomHeaderButton from '../components/navigations/CustomHeaderButton';
 import i18n from '../lang/i18n';
+import colors from '../constants/colors';
 
 // screens
 import Home from '../screens/Home';
@@ -26,7 +27,7 @@ const MainStack = (props) => {
         component={Home}
         options={{
           title: i18n.t('Home.Title'),
-          headerStyle: { backgroundColor: 'skyblue' },
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
               <Item

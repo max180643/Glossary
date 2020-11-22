@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { Locate } from '../states/atom';
 import CustomHeaderButton from '../components/navigations/CustomHeaderButton';
 import i18n from '../lang/i18n';
+import colors from '../constants/colors';
 
 // screens
 import MyVocab from '../screens/MyVocab';
@@ -21,7 +22,7 @@ const MyVocabStack = (props) => {
         component={MyVocab}
         options={{
           title: 'My Vocab',
-          headerStyle: { backgroundColor: 'skyblue' },
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
               <Item

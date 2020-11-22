@@ -6,6 +6,8 @@ import {
 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import IconImage from '../../assets/profile.png';
+import colors from '../../constants/colors';
+import EvaIcon from '../EvaIcon';
 
 const MyVocabList = () => (
   <Layout style={styles.container}>
@@ -18,15 +20,7 @@ const MyVocabList = () => (
       </Layout>
       <Layout style={styles.textDetail}>
         <Layout style={styles.vocabName}>
-          <Icon
-            style={{
-              height: 22,
-              width: 22,
-              marginRight: wp('2%'),
-            }}
-            fill="skyblue"
-            name="book-open-outline"
-          />
+          <EvaIcon color={colors.primary} name="book-open-outline" size={22} style={{ marginRight: wp('2%') }} />
           <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>TOEIC 2020</Text>
         </Layout>
         <Layout style={styles.buttonDetail}>
@@ -53,7 +47,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: 'skyblue',
+    backgroundColor: colors.primary,
     padding: 10,
     margin: 5,
     borderRadius: 10,
@@ -65,7 +59,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: 'skyblue',
+    borderColor: colors.primary,
     borderWidth: 4,
     borderRadius: 20,
     marginTop: hp('2%'),

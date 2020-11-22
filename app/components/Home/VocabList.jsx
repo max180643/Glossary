@@ -4,6 +4,7 @@ import { Layout, Text } from '@ui-kitten/components';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import IconImage from '../../assets/profile.png';
 import EvaIcon from '../EvaIcon';
+import colors from '../../constants/colors';
 
 const VocabList = ({ item }) => (
   <TouchableOpacity delayPressIn={0}>
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   iconContain: {
-    borderColor: 'skyblue',
+    borderColor: colors.primary,
     borderWidth: 4,
     padding: 10,
     margin: 20,

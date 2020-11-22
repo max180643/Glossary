@@ -12,6 +12,7 @@ import axios from 'axios';
 import { Locate, Search } from '../states/atom';
 import i18n from '../lang/i18n';
 import VocabList from '../components/Home/VocabList';
+import colors from '../constants/colors';
 
 const Home = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -29,14 +30,14 @@ const Home = () => {
 
   const handleRefresh = () => {
     setRefreshing(true);
-    axios.get(`https://glossary-api.herokuapp.com/api/data/${category[selectedIndex]}`).then((res) => {
+    axios.get(`${process.env.API_URL}/api/data/${category[selectedIndex]}`).then((res) => {
       setVocabData(res.data.response);
       setRefreshing(false);
     });
   };
 
   useEffect(() => {
-    axios.get(`https://glossary-api.herokuapp.com/api/data/${category[selectedIndex]}`).then((res) => {
+    axios.get(`${process.env.API_URL}/api/data/${category[selectedIndex]}`).then((res) => {
       setVocabData(res.data.response);
       setLoading(false);
     });
@@ -55,10 +56,12 @@ const Home = () => {
                 height: 22,
                 width: 22,
               }}
-              fill="skyblue"
+              fill={colors.primary}
               name="search"
             />
           )}
+          returnKeyType="search"
+          onSubmitEditing={() => console.log('Hello')}
         />
       </Layout>
       )}
@@ -68,12 +71,12 @@ const Home = () => {
         tabTextStyle={styles.tabTextStyle}
         tabStyle={styles.tabStyle}
         activeTabStyle={styles.activeTabStyle}
-        values={['TOP', 'OFFICIAL', 'LATEST']}
+        values={[i18n.t('Home.Top'), i18n.t('Home.Official'), i18n.t('Home.Latest')]}
         selectedIndex={selectedIndex}
         onTabPress={handleIndexSelect}
       />
 
-      {Loading && (<Layout style={{ flex: 1, justifyContent: 'center' }}><Spinner size="large" /></Layout>)}
+      {Loading && (<Layout style={{ flex: 1, justifyContent: 'center' }}><Spinner size="large" style={{ borderColor: colors.primary }} /></Layout>)}
 
       {!Loading
       && (
@@ -98,10 +101,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tabStyle: {
-    borderColor: 'skyblue',
+    borderColor: colors.primary,
   },
   activeTabStyle: {
-    backgroundColor: 'skyblue',
+    backgroundColor: colors.primary,
   },
   tabTextStyle: {
     color: 'black',
