@@ -12,6 +12,8 @@
     "Title": "Home",
     "Top": "TOP",
     "Official": "OFFICIAL",
-    "Latest": "LATEST"
+    "Latest": "LATEST",
+    "Search": "Search Glossary",
+    "Empty": "Glossary not found"
   }
 }

@@ -3,9 +3,9 @@ import {
   StyleSheet, FlatList,
 } from 'react-native';
 import {
-  Layout, Spinner, Input, Icon,
+  Layout, Spinner, Input, Text,
 } from '@ui-kitten/components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import axios from 'axios';
@@ -13,15 +13,17 @@ import { Locate, Search } from '../states/atom';
 import i18n from '../lang/i18n';
 import VocabList from '../components/Home/VocabList';
 import colors from '../constants/colors';
+import EvaIcon from '../components/EvaIcon';
 
 const Home = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [VocabData, setVocabData] = useState([]);
   const [Refreshing, setRefreshing] = useState(false);
   const [Loading, setLoading] = useState(true);
-  const category = ['public', 'official', 'latest'];
+  const [SearchBox, setSearchBox] = useState('');
+  const category = ['top', 'official', 'latest'];
   const LocateData = useRecoilValue(Locate);
-  const SearchData = useRecoilValue(Search);
+  const [SearchData, setSearchData] = useRecoilState(Search);
 
   const handleIndexSelect = (index) => {
     setSelectedIndex(index);
@@ -33,6 +35,16 @@ const Home = () => {
     axios.get(`${process.env.API_URL}/api/data/${category[selectedIndex]}`).then((res) => {
       setVocabData(res.data.response);
       setRefreshing(false);
+    });
+  };
+
+  const handleSearch = () => {
+    setSearchData(false);
+    setLoading(true);
+    axios.get(`${process.env.API_URL}/api/data/search?query=${SearchBox}&type=${category[selectedIndex]}`).then((res) => {
+      setVocabData(res.data.response);
+      setLoading(false);
+      setSearchBox('');
     });
   };
 
@@ -49,19 +61,15 @@ const Home = () => {
       <Layout>
         <Input
           style={styles.inputSearch}
-          placeholder="Place your Text"
+          placeholder={i18n.t('Home.Search')}
           accessoryRight={() => (
-            <Icon
-              style={{
-                height: 22,
-                width: 22,
-              }}
-              fill={colors.primary}
-              name="search"
-            />
+            <EvaIcon color={colors.primary} name="search" size={22} />
           )}
           returnKeyType="search"
-          onSubmitEditing={() => console.log('Hello')}
+          status="info"
+          value={SearchBox}
+          onChangeText={(text) => { setSearchBox(text); }}
+          onSubmitEditing={() => handleSearch()}
         />
       </Layout>
       )}
@@ -78,7 +86,7 @@ const Home = () => {
 
       {Loading && (<Layout style={{ flex: 1, justifyContent: 'center' }}><Spinner size="large" style={{ borderColor: colors.primary }} /></Layout>)}
 
-      {!Loading
+      {!Loading && VocabData.length > 0
       && (
       <FlatList
         numColumns={2}
@@ -90,6 +98,8 @@ const Home = () => {
         onRefresh={handleRefresh}
       />
       )}
+
+      {!Loading && VocabData.length === 0 && <Layout style={{ flex: 1, justifyContent: 'center' }}><Text>{i18n.t('Home.Empty')}</Text></Layout>}
 
     </Layout>
   );
