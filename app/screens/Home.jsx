@@ -16,7 +16,7 @@ import VocabList from '../components/Home/VocabList';
 import colors from '../constants/colors';
 import EvaIcon from '../components/EvaIcon';
 
-const Home = () => {
+const Home = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [VocabData, setVocabData] = useState([]);
   const [Refreshing, setRefreshing] = useState(false);
@@ -47,6 +47,10 @@ const Home = () => {
       setLoading(false);
       setSearchBox('');
     });
+  };
+
+  const handleDetail = (item) => {
+    props.navigation.navigate('Detail', { item });
   };
 
   useEffect(() => {
@@ -85,22 +89,22 @@ const Home = () => {
         onTabPress={handleIndexSelect}
       />
 
-      {Loading && (<Layout style={{ flex: 1, justifyContent: 'center' }}><Spinner size="large" style={{ borderColor: colors.primary }} /></Layout>)}
+      {Loading ? (<Layout style={{ flex: 1, justifyContent: 'center' }}><Spinner size="large" style={{ borderColor: colors.primary }} /></Layout>) : []}
 
       {!Loading && VocabData.length > 0
-      && (
-      <FlatList
-        numColumns={2}
-        contentContainerStyle={styles.listContain}
-        data={VocabData}
-        renderItem={VocabList}
-        keyExtractor={(item) => item.id}
-        refreshing={Refreshing}
-        onRefresh={handleRefresh}
-      />
-      )}
+        ? (
+          <FlatList
+            numColumns={2}
+            contentContainerStyle={styles.listContain}
+            data={VocabData}
+            renderItem={({ item }) => <VocabList item={item} handleDetail={handleDetail} />}
+            keyExtractor={(item) => item.id}
+            refreshing={Refreshing}
+            onRefresh={handleRefresh}
+          />
+        ) : []}
 
-      {!Loading && VocabData.length === 0 && <Layout style={{ flex: 1, justifyContent: 'center' }}><Text>{i18n.t('Home.Empty')}</Text></Layout>}
+      {!Loading && VocabData.length === 0 ? <Layout style={{ flex: 1, justifyContent: 'center' }}><Text>{i18n.t('Home.Empty')}</Text></Layout> : []}
 
     </Layout>
   );

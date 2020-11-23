@@ -9,6 +9,8 @@ import colors from '../constants/colors';
 
 // screens
 import Home from '../screens/Home';
+import Detail from '../screens/Detail';
+import Game from '../screens/Game';
 
 const MainStack = (props) => {
   const LocateData = useRecoilValue(Locate);
@@ -43,6 +45,40 @@ const MainStack = (props) => {
                 title="Search"
                 iconName="ios-search"
                 onPress={() => handleSearch()}
+              />
+            </HeaderButtons>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Detail"
+        component={Detail}
+        options={{
+          title: 'Detail',
+          headerStyle: { backgroundColor: colors.primary },
+          headerLeft: () => (
+            <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+              <Item
+                title="Menu"
+                iconName="ios-arrow-back"
+                onPress={() => props.navigation.goBack()}
+              />
+            </HeaderButtons>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Game"
+        component={Game}
+        options={{
+          title: 'Game',
+          headerStyle: { backgroundColor: colors.primary },
+          headerLeft: () => (
+            <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+              <Item
+                title="Menu"
+                iconName="ios-arrow-back"
+                onPress={() => props.navigation.goBack()}
               />
             </HeaderButtons>
           ),

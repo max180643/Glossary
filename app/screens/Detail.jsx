@@ -11,7 +11,9 @@ import colors from '../constants/colors';
 import EvaIcon from '../components/EvaIcon';
 
 const Detail = (props) => {
-  console.log(props);
+  const { route } = props;
+  const data = route.params.item;
+
   return (
     <Layout style={styles.container}>
       <Layout style={styles.flexRow}>
@@ -25,18 +27,18 @@ const Detail = (props) => {
         </Layout>
         <Layout style={styles.textDetail}>
           <Layout style={styles.textDetail}>
-            <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>TOEIC 2020</Text>
+            <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>{data.name}</Text>
           </Layout>
           <Layout style={styles.textDetail}>
-            <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>By eiei2543</Text>
+            <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>{data.owner}</Text>
           </Layout>
           <Layout style={styles.textDetail}>
-            <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>450</Text>
+            <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>{data.like}</Text>
           </Layout>
         </Layout>
       </Layout>
       <Layout>
-        <Text style={styles.vocabDetail}>{'        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'}</Text>
+        <Text style={styles.vocabDetail}>{`        ${data.description}`}</Text>
       </Layout>
       <Layout>
         <TouchableOpacity style={styles.button}>
@@ -47,9 +49,9 @@ const Detail = (props) => {
         </TouchableOpacity>
       </Layout>
     </Layout>
-
   );
 };
+
 const styles = StyleSheet.create({
   icon: {
     height: hp('15%'),

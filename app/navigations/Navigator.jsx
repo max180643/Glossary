@@ -9,6 +9,7 @@ import CustomEvaIcon from '../components/navigations/CustomEvaIcon';
 import i18n from '../lang/i18n';
 import MyVocabStack from './MyVocabStack';
 import NoPermissionStack from './NoPermissionStack';
+import CreateStack from './CreateStack';
 
 const Navigator = () => {
   const Drawer = createDrawerNavigator();
@@ -31,7 +32,7 @@ const Navigator = () => {
     <Drawer.Navigator initialRouteName="Home" drawerContent={(props) => <CustomDrawerContent {...props} SwitchLanguage={SwitchLanguage} />}>
       <Drawer.Screen name="Home" component={MainStack} options={{ title: i18n.t('Navigation.Home'), drawerIcon: (props) => (<CustomEvaIcon data={{ ...props, name: 'home' }} />) }} />
       <Drawer.Screen name="MyVocab" component={IsLoginData ? MyVocabStack : NoPermissionStack} options={{ title: i18n.t('Navigation.MyGlossary'), drawerIcon: (props) => (<CustomEvaIcon data={{ ...props, name: 'book' }} />) }} />
-      <Drawer.Screen name="CreateNewGlossary" component={IsLoginData ? NoPermissionStack : NoPermissionStack} options={{ title: i18n.t('Navigation.CreateNewGlossary'), drawerIcon: (props) => (<CustomEvaIcon data={{ ...props, name: 'plus-square' }} />) }} />
+      <Drawer.Screen name="CreateNewGlossary" component={IsLoginData ? CreateStack : NoPermissionStack} options={{ title: i18n.t('Navigation.CreateNewGlossary'), drawerIcon: (props) => (<CustomEvaIcon data={{ ...props, name: 'plus-square' }} />) }} />
     </Drawer.Navigator>
   );
 };

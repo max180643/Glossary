@@ -6,8 +6,8 @@ import IconImage from '../../assets/profile.png';
 import EvaIcon from '../EvaIcon';
 import colors from '../../constants/colors';
 
-const VocabList = ({ item }) => (
-  <TouchableOpacity delayPressIn={0}>
+const VocabList = ({ item, handleDetail }) => (
+  <TouchableOpacity delayPressIn={0} onPress={() => handleDetail(item)}>
     <Layout style={styles.iconContain}>
       <Image
         style={styles.icon}
