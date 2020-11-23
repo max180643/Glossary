@@ -17,7 +17,7 @@ const VocabList = ({ item, handleDetail }) => (
     <Layout style={styles.vocabText}>
       <Text numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
       <Text>
-        <EvaIcon color="red" name="heart" size={15} />
+        <EvaIcon color="#ff3d71" name="heart" size={15} />
         <Text>{` ${item.like}`}</Text>
       </Text>
     </Layout>

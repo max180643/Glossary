@@ -26,26 +26,39 @@ const Detail = (props) => {
           </Layout>
         </Layout>
         <Layout style={styles.textDetail}>
+          <Text numberOfLines={1} ellipsizeMode="tail">
+            <EvaIcon color="pink" name="book-outline" size={16} />
+            <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>{` ${data.name}`}</Text>
+          </Text>
           <Layout style={styles.textDetail}>
-            <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>{data.name}</Text>
+            <Text numberOfLines={1} ellipsizeMode="tail">
+              <EvaIcon color="orange" name="people-outline" size={16} />
+              <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>{` ${data.owner}`}</Text>
+            </Text>
           </Layout>
           <Layout style={styles.textDetail}>
-            <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>{data.owner}</Text>
+            <Text>
+              <EvaIcon color="#3466ff" name="hash-outline" size={15} />
+              <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>{` ${data.id}`}</Text>
+            </Text>
           </Layout>
           <Layout style={styles.textDetail}>
-            <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>{data.like}</Text>
+            <Text>
+              <EvaIcon color="#ff3d71" name="heart" size={15} />
+              <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>{` ${data.like}`}</Text>
+            </Text>
           </Layout>
         </Layout>
       </Layout>
       <Layout>
         <Text style={styles.vocabDetail}>{`        ${data.description}`}</Text>
       </Layout>
-      <Layout>
+      <Layout style={styles.buttonDetail}>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.button}>เริ่ม</Text>
+          <Text>ฝึกฝน</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.button} onPress={() => props.navigation.navigate('Game')}>เล่นเกม</Text>
+          <Text onPress={() => props.navigation.navigate('Game')}>เล่นเกม</Text>
         </TouchableOpacity>
       </Layout>
     </Layout>
@@ -78,8 +91,7 @@ const styles = StyleSheet.create({
   },
   textDetail: {
     padding: 5,
-    alignItems: 'center',
-    borderRadius: 20,
+    maxWidth: wp('50%'),
   },
   vocabName: {
     flexDirection: 'row',
@@ -92,13 +104,21 @@ const styles = StyleSheet.create({
   vocabDetail: {
     padding: wp('5%'),
     marginHorizontal: wp('5%'),
+    backgroundColor: '#edf0f4',
+    marginVertical: hp('2%'),
   },
   button: {
-    backgroundColor: colors.primary,
+    backgroundColor: 'orange',
     padding: 5,
     borderRadius: 10,
     margin: 5,
     alignItems: 'center',
+    justifyContent: 'center',
+    width: wp('20%'),
+    height: hp('5%'),
+  },
+  buttonDetail: {
+    flexDirection: 'row',
   },
 });
 
