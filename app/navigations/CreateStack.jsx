@@ -16,7 +16,7 @@ const CreateStack = (props) => {
   const Stack = createStackNavigator();
 
   return (
-    <Stack.Navigator locate={LocateData}>
+    <Stack.Navigator locate={LocateData} initialRouteName="Create">
       <Stack.Screen
         name="Create"
         component={Create}

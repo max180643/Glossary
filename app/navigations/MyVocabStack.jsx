@@ -16,7 +16,7 @@ const MyVocabStack = (props) => {
   const Stack = createStackNavigator();
 
   return (
-    <Stack.Navigator locate={LocateData}>
+    <Stack.Navigator locate={LocateData} initialRouteName="MyVocab">
       <Stack.Screen
         name="MyVocab"
         component={MyVocab}

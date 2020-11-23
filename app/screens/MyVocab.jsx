@@ -18,7 +18,7 @@ const MyVocab = () => {
   const [Refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    axios.get(`${Constants.manifest.extra.URL_API}/api/data/glossary?id=nipnew`).then((res) => {
+    axios.get(`${Constants.manifest.extra.URL_API}/api/data/glossary?id=1`).then((res) => {
       setMyGlossary(res.data.response);
       setLoading(false);
     });
@@ -26,7 +26,7 @@ const MyVocab = () => {
 
   const handleRefresh = () => {
     setRefreshing(true);
-    axios.get(`${Constants.manifest.extra.URL_API}/api/data/glossary?id=nipnew`).then((res) => {
+    axios.get(`${Constants.manifest.extra.URL_API}/api/data/glossary?id=1`).then((res) => {
       setMyGlossary(res.data.response);
       setRefreshing(false);
     });

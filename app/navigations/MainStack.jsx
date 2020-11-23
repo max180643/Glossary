@@ -23,7 +23,7 @@ const MainStack = (props) => {
   };
 
   return (
-    <Stack.Navigator locate={LocateData}>
+    <Stack.Navigator locate={LocateData} initialRouteName="Home">
       <Stack.Screen
         name="Home"
         component={Home}
