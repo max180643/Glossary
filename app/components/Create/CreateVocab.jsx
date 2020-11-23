@@ -1,15 +1,17 @@
 import React from 'react';
-import { Layout, Input } from '@ui-kitten/components';
+import { Layout } from '@ui-kitten/components';
 import {
-  StyleSheet, TouchableOpacity, Text, Image,
+  StyleSheet, TouchableOpacity, Text,
 } from 'react-native';
 import colors from '../../constants/colors';
 
-const CreateVocab = () => (
-  <Layout style={styles.vocabCard}>
-    <Text style={{ fontSize: 50 }}>Ant</Text>
-    <Text style={{ fontSize: 30 }}>มด</Text>
-  </Layout>
+const CreateVocab = ({ item }) => (
+  <TouchableOpacity delayPressIn={0}>
+    <Layout style={styles.vocabCard}>
+      <Text style={{ fontSize: 30 }}>{item.en}</Text>
+      <Text style={{ fontSize: 20 }}>{item.th}</Text>
+    </Layout>
+  </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
@@ -18,8 +20,8 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: colors.primary,
     alignItems: 'center',
-    padding: 20,
-    margin: 10,
+    padding: 10,
+    margin: 5,
     marginHorizontal: 50,
   },
 });
