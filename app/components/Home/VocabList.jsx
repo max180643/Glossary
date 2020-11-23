@@ -22,7 +22,6 @@ const VocabList = ({ item, handleDetail }) => (
       </Text>
     </Layout>
   </TouchableOpacity>
-
 );
 
 const styles = StyleSheet.create({
