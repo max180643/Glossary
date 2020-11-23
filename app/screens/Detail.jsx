@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     marginHorizontal: wp('5%'),
     backgroundColor: '#edf0f4',
     marginVertical: hp('2%'),
+    width: wp('80%'),
   },
   button: {
     backgroundColor: 'orange',
