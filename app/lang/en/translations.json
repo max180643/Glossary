@@ -19,6 +19,10 @@
   "MyVocab": {
     "Title": "My Glossary",
     "Delete": "Delete",
-    "Edit": "Edit"
+    "Edit": "Edit",
+    "DeleteTitle": "Are you sure you want to delete?",
+    "DeleteMsg": "Glossary:",
+    "CancelButton": "Cancel",
+    "DeleteButton": "Delete"
   }
 }

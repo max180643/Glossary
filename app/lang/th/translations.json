@@ -19,6 +19,10 @@
   "MyVocab": {
     "Title": "ชุดคำศัพท์ของฉัน",
     "Delete": "ลบ",
-    "Edit": "แก้ไข"
+    "Edit": "แก้ไข",
+    "DeleteTitle": "คุณแน่ใจหรือไม่ว่าต้องการลบ?",
+    "DeleteMsg": "ชุดคำศัพท์:",
+    "CancelButton": "ยกเลิก",
+    "DeleteButton": "ลบ"
   }
 }

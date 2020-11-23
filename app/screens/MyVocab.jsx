@@ -15,6 +15,7 @@ const MyVocab = () => {
 
   const [MyGlossary, setMyGlossary] = useState([]);
   const [Loading, setLoading] = useState(true);
+  const [Refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     axios.get(`${Constants.manifest.extra.URL_API}/api/data/glossary?id=nipnew`).then((res) => {
@@ -23,18 +24,37 @@ const MyVocab = () => {
     });
   }, []);
 
+  const handleRefresh = () => {
+    setRefreshing(true);
+    axios.get(`${Constants.manifest.extra.URL_API}/api/data/glossary?id=nipnew`).then((res) => {
+      setMyGlossary(res.data.response);
+      setRefreshing(false);
+    });
+  };
+
+  const handleReload = () => {
+    setLoading(true);
+    axios.get(`${Constants.manifest.extra.URL_API}/api/data/glossary?id=nipnew`).then((res) => {
+      setMyGlossary(res.data.response);
+      setLoading(false);
+    });
+  };
+
   return (
     <Layout style={styles.container} locate={LocateData}>
-      {Loading && (<Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner size="large" style={{ borderColor: colors.primary }} /></Layout>)}
+      {Loading ? <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner size="large" style={{ borderColor: colors.primary }} /></Layout> : []}
 
       {!Loading
-      && (
-      <FlatList
-        data={MyGlossary}
-        renderItem={MyVocabList}
-        keyExtractor={(item) => item.id.toString()}
-      />
-      )}
+        ? (
+          <FlatList
+            data={MyGlossary}
+            renderItem={({ item }) => <MyVocabList item={item} handleReload={handleReload} />}
+            keyExtractor={(item) => item.id.toString()}
+            refreshing={Refreshing}
+            onRefresh={handleRefresh}
+          />
+        )
+        : []}
     </Layout>
   );
 };

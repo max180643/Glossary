@@ -1,40 +1,66 @@
 import React from 'react';
 import { Layout } from '@ui-kitten/components';
 import {
-  StyleSheet, Image, Text, TouchableOpacity,
+  StyleSheet, Image, Text, TouchableOpacity, Alert,
 } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import axios from 'axios';
+import Constants from 'expo-constants';
 import IconImage from '../../assets/profile.png';
 import colors from '../../constants/colors';
 import EvaIcon from '../EvaIcon';
 import i18n from '../../lang/i18n';
 
-const MyVocabList = ({ item }) => (
-  <Layout style={styles.container}>
-    <Layout style={styles.card}>
-      <Layout style={styles.imageDetail}>
-        <Image
-          style={styles.icon}
-          source={IconImage}
-        />
-      </Layout>
-      <Layout style={styles.textDetail}>
-        <Layout style={styles.vocabName}>
-          <EvaIcon color={colors.primary} name="book-open-outline" size={22} style={{ marginRight: wp('5%') }} />
-          <Text style={{ maxWidth: wp('48%'), fontSize: 18 }} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
+const MyVocabList = ({ item, handleReload }) => {
+  const handleDelete = () => {
+    Alert.alert(
+      i18n.t('MyVocab.DeleteTitle'),
+      `${i18n.t('MyVocab.DeleteMsg')} ${item.name}`,
+      [
+        {
+          text: i18n.t('MyVocab.CancelButton'),
+          style: 'cancel',
+        },
+        {
+          text: i18n.t('MyVocab.DeleteButton'),
+          onPress: () => {
+            axios.get(`${Constants.manifest.extra.URL_API}/api/data/delete?id=${item.id}&type=${item.type}`).then(() => {
+              handleReload();
+            });
+          },
+        },
+      ],
+      { cancelable: false },
+    );
+  };
+
+  return (
+    <Layout style={styles.container}>
+      <Layout style={styles.card}>
+        <Layout style={styles.imageDetail}>
+          <Image
+            style={styles.icon}
+            source={IconImage}
+          />
         </Layout>
-        <Layout style={styles.buttonDetail}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.textButton}>{i18n.t('MyVocab.Delete')}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.textButton}>{i18n.t('MyVocab.Edit')}</Text>
-          </TouchableOpacity>
+        <Layout style={styles.textDetail}>
+          <Layout style={styles.vocabName}>
+            <EvaIcon color={colors.primary} name={item.type === 'private' ? 'lock-outline' : 'book-open-outline'} size={22} />
+            <Text style={{ maxWidth: wp('48%'), fontSize: 18, marginLeft: 5 }} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
+          </Layout>
+          <Layout style={styles.buttonDetail}>
+            <TouchableOpacity style={styles.button} onPress={() => handleDelete()}>
+              <Text style={styles.textButton}>{i18n.t('MyVocab.Delete')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.textButton}>{i18n.t('MyVocab.Edit')}</Text>
+            </TouchableOpacity>
+          </Layout>
         </Layout>
       </Layout>
     </Layout>
-  </Layout>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   icon: {
@@ -61,7 +87,8 @@ const styles = StyleSheet.create({
     borderColor: colors.primary,
     borderWidth: 4,
     borderRadius: 20,
-    marginTop: hp('2%'),
+    marginTop: hp('1%'),
+    marginBottom: hp('1%'),
   },
   imageDetail: {
     padding: 10,
