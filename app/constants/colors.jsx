@@ -1,7 +1,7 @@
 const colors = {
   primary: 'skyblue',
-  correct: 'green',
-  incorrect: 'red',
+  correct: 'skyblue',
+  incorrect: 'orange',
   boxFilled: 'orange',
   boxUnFilled: 'silver',
   toolSkip: '#444',
