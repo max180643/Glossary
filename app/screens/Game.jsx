@@ -1,43 +1,61 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Layout } from '@ui-kitten/components';
 import {
   StyleSheet, TouchableOpacity, Text,
 } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import colors from '../constants/colors';
+import CustomHeaderButton from '../components/navigations/CustomHeaderButton';
 
-const MyVocabList = () => (
-  <Layout style={styles.container}>
-    <TouchableOpacity delayPressIn={0}>
-      <Layout style={styles.card}>
-        <Layout style={styles.choice}>
-          <Text style={{ fontSize: 30 }}>ตัวเลือก</Text>
+const MyVocabList = (props) => {
+  useEffect(() => {
+    props.navigation.setOptions({
+      headerLeft: () => (
+        <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+          <Item
+            title="Menu"
+            iconName="ios-arrow-back"
+            onPress={() => props.navigation.goBack()}
+          />
+        </HeaderButtons>
+      ),
+    });
+  }, []);
+
+  return (
+    <Layout style={styles.container}>
+      <TouchableOpacity delayPressIn={0}>
+        <Layout style={styles.card}>
+          <Layout style={styles.choice}>
+            <Text style={{ fontSize: 30 }}>ตัวเลือก</Text>
+          </Layout>
         </Layout>
-      </Layout>
-    </TouchableOpacity>
-    <TouchableOpacity delayPressIn={0}>
-      <Layout style={styles.card}>
-        <Layout style={styles.choice}>
-          <Text style={{ fontSize: 30 }}>เปิดคำศัพท์</Text>
+      </TouchableOpacity>
+      <TouchableOpacity delayPressIn={0}>
+        <Layout style={styles.card}>
+          <Layout style={styles.choice}>
+            <Text style={{ fontSize: 30 }}>เปิดคำศัพท์</Text>
+          </Layout>
         </Layout>
-      </Layout>
-    </TouchableOpacity>
-    <TouchableOpacity delayPressIn={0}>
-      <Layout style={styles.card}>
-        <Layout style={styles.choice}>
-          <Text style={{ fontSize: 30 }}>เติมคำ</Text>
+      </TouchableOpacity>
+      <TouchableOpacity delayPressIn={0}>
+        <Layout style={styles.card}>
+          <Layout style={styles.choice}>
+            <Text style={{ fontSize: 30 }}>เติมคำ</Text>
+          </Layout>
         </Layout>
-      </Layout>
-    </TouchableOpacity>
-    <TouchableOpacity delayPressIn={0}>
-      <Layout style={styles.card}>
-        <Layout style={styles.choice}>
-          <Text style={{ fontSize: 30 }}>ทายคำ</Text>
+      </TouchableOpacity>
+      <TouchableOpacity delayPressIn={0}>
+        <Layout style={styles.card}>
+          <Layout style={styles.choice}>
+            <Text style={{ fontSize: 30 }}>ทายคำ</Text>
+          </Layout>
         </Layout>
-      </Layout>
-    </TouchableOpacity>
-  </Layout>
-);
+      </TouchableOpacity>
+    </Layout>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

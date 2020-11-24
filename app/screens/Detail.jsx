@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   StyleSheet, Image, Text, TouchableOpacity,
 } from 'react-native';
@@ -6,13 +6,29 @@ import {
   Layout,
 } from '@ui-kitten/components';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import IconImage from '../assets/profile.png';
 import colors from '../constants/colors';
 import EvaIcon from '../components/EvaIcon';
+import CustomHeaderButton from '../components/navigations/CustomHeaderButton';
 
 const Detail = (props) => {
   const { route } = props;
   const data = route.params.item;
+
+  useEffect(() => {
+    props.navigation.setOptions({
+      headerLeft: () => (
+        <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+          <Item
+            title="Menu"
+            iconName="ios-arrow-back"
+            onPress={() => props.navigation.goBack()}
+          />
+        </HeaderButtons>
+      ),
+    });
+  }, []);
 
   return (
     <Layout style={styles.container}>

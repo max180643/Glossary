@@ -57,15 +57,6 @@ const MainStack = (props) => {
         options={{
           title: 'Detail',
           headerStyle: { backgroundColor: colors.primary },
-          headerLeft: () => (
-            <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-              <Item
-                title="Menu"
-                iconName="ios-arrow-back"
-                onPress={() => props.navigation.goBack()}
-              />
-            </HeaderButtons>
-          ),
         }}
       />
       <Stack.Screen
@@ -74,15 +65,6 @@ const MainStack = (props) => {
         options={{
           title: 'Game',
           headerStyle: { backgroundColor: colors.primary },
-          headerLeft: () => (
-            <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-              <Item
-                title="Menu"
-                iconName="ios-arrow-back"
-                onPress={() => props.navigation.goBack()}
-              />
-            </HeaderButtons>
-          ),
         }}
       />
       <Stack.Screen
@@ -91,15 +73,6 @@ const MainStack = (props) => {
         options={{
           title: 'Practice',
           headerStyle: { backgroundColor: colors.primary },
-          headerLeft: () => (
-            <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-              <Item
-                title="Menu"
-                iconName="ios-arrow-back"
-                onPress={() => props.navigation.goBack()}
-              />
-            </HeaderButtons>
-          ),
         }}
       />
     </Stack.Navigator>
