@@ -26,5 +26,22 @@
     "DeleteMsg": "Glossary:",
     "CancelButton": "Cancel",
     "DeleteButton": "Delete"
+  },
+  "CreateGlossary": {
+    "Title": "Create Glossary",
+    "Private": "Private Glossary",
+    "Name": "Glossary name",
+    "Description": "description",
+    "Word": "Word",
+    "Meaning": "Meaning",
+    "Create": "Create",
+    "Alert": "Alert!",
+    "Below": "Minimum 5 words required",
+    "Complete": "Please complete all fields",
+    "OK": "OK",
+    "DeleteTitle": "Are you sure you want to delete?",
+    "DeleteMsg": "",
+    "Cancel": "Cancel",
+    "Delete": "Delete"
   }
 }

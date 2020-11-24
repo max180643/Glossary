@@ -13,7 +13,9 @@ import IconImage from '../assets/profile.png';
 import colors from '../constants/colors';
 import EvaIcon from '../components/EvaIcon';
 import CreateVocab from '../components/Create/CreateVocab';
+import { Locate } from '../states/atom';
 import { UserID, UserName } from '../states/auth';
+import i18n from '../lang/i18n';
 
 const Create = (props) => {
   const [GlossaryName, setGlossaryName] = useState('');
@@ -26,6 +28,7 @@ const Create = (props) => {
 
   const UserIDData = useRecoilValue(UserID);
   const UserNameData = useRecoilValue(UserName);
+  const LocateData = useRecoilValue(Locate);
 
   const onCheckedChange = (isChecked) => {
     setPrivate(isChecked);
@@ -63,25 +66,49 @@ const Create = (props) => {
       });
     } else if (GlossaryList.length < 5) {
       Alert.alert(
-        'แจ้งเตือน',
-        'คำศัพท์ต้องมีขั้นต่ำ 5 ชุด',
+        i18n.t('CreateGlossary.Alert'),
+        i18n.t('CreateGlossary.Below'),
         [
-          { text: 'OK' },
+          { text: i18n.t('CreateGlossary.OK') },
         ],
       );
     } else {
       Alert.alert(
-        'แจ้งเตือน',
-        'กรุณากรอกข้อมูลให้ครับถ้วน',
+        i18n.t('CreateGlossary.Alert'),
+        i18n.t('CreateGlossary.Complete'),
         [
-          { text: 'OK' },
+          { text: i18n.t('CreateGlossary.OK') },
         ],
       );
     }
   };
 
+  const removeWord = (index) => {
+    Alert.alert(
+      i18n.t('CreateGlossary.DeleteTitle'),
+      i18n.t('CreateGlossary.DeleteMsg'),
+      [
+        {
+          text: i18n.t('CreateGlossary.Cancel'),
+          style: 'cancel',
+        },
+        {
+          text: i18n.t('CreateGlossary.Delete'),
+          onPress: () => {
+            const GlossaryArray = GlossaryList;
+            const TempSlice1 = GlossaryArray.slice(0, index);
+            const TempSlice2 = GlossaryArray.slice(index + 1);
+            const TempArray = [...TempSlice1, ...TempSlice2];
+            setGlossaryList(TempArray);
+          },
+        },
+      ],
+      { cancelable: false },
+    );
+  };
+
   return (
-    <Layout style={styles.container}>
+    <Layout style={styles.container} locate={LocateData}>
       {Loading ? <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner size="large" style={{ borderColor: colors.primary }} /></Layout> : []}
 
       {!Loading
@@ -95,16 +122,16 @@ const Create = (props) => {
                 />
               </Layout>
             </Layout>
-            <Layout>
+            <Layout style={{ marginBottom: 20 }}>
               <Toggle checked={Private} onChange={onCheckedChange} style={{ margin: 5 }} status="info">
-                ส่วนตัว
+                {i18n.t('CreateGlossary.Title')}
               </Toggle>
             </Layout>
             <Layout style={styles.textDetail}>
               <Input
                 status="info"
                 style={{ width: wp('70%') }}
-                placeholder="ชื่อชุดคำศัพท์"
+                placeholder={i18n.t('CreateGlossary.Name')}
                 accessoryRight={() => (
                   <EvaIcon color={colors.primary} name="book-open-outline" size={22} />
                 )}
@@ -118,7 +145,7 @@ const Create = (props) => {
                 maxLength={200}
                 status="info"
                 style={{ width: wp('70%'), maxHeight: hp('12%') }}
-                placeholder="คำอธิบาย"
+                placeholder={i18n.t('CreateGlossary.Description')}
                 accessoryRight={() => (
                   <EvaIcon color={colors.primary} name="file-text-outline" size={22} />
                 )}
@@ -126,12 +153,12 @@ const Create = (props) => {
                 onChangeText={(text) => { setDescription(text); }}
               />
             </Layout>
-            <Text style={{ alignSelf: 'center', marginBottom: hp('1%') }} category="h5">- คำศัพท์ -</Text>
+            <Text style={{ alignSelf: 'center', marginBottom: hp('1%') }} category="h5">{i18n.t('CreateGlossary.Word')}</Text>
             <Layout style={styles.textDetail}>
               <Input
                 status="info"
                 style={{ width: wp('70%'), maxHeight: hp('12%') }}
-                placeholder="คำศัพท์"
+                placeholder={i18n.t('CreateGlossary.Word')}
                 accessoryRight={() => (
                   <EvaIcon color={colors.primary} name="book-outline" size={22} />
                 )}
@@ -144,7 +171,7 @@ const Create = (props) => {
               <Input
                 status="info"
                 style={{ width: wp('70%'), maxHeight: hp('12%') }}
-                placeholder="คำแปล"
+                placeholder={i18n.t('CreateGlossary.Meaning')}
                 accessoryRight={() => (
                   <EvaIcon color={colors.primary} name="text-outline" size={22} />
                 )}
@@ -158,7 +185,14 @@ const Create = (props) => {
               </TouchableOpacity>
             </Layout>
             <Layout style={styles.vocabCard}>
-              {GlossaryList.map((item, index) => <CreateVocab item={item} key={index} />)}
+              {GlossaryList.map((item, index) => (
+                <CreateVocab
+                  item={item}
+                  key={index}
+                  index={index}
+                  handleRemove={removeWord}
+                />
+              ))}
             </Layout>
             <TouchableOpacity
               delayPressIn={0}
@@ -167,7 +201,7 @@ const Create = (props) => {
                 alignSelf: 'center', backgroundColor: colors.primary, borderRadius: 10, padding: 15, margin: 10,
               }}
             >
-              <Text>สร้างชุดคำศัพท์</Text>
+              <Text>{i18n.t('CreateGlossary.Create')}</Text>
             </TouchableOpacity>
           </ScrollView>
         )
@@ -202,8 +236,6 @@ const styles = StyleSheet.create({
   },
   vocabCard: {
     marginTop: 10,
-
-    // maxHeight: hp('15%'),
   },
   addVocab: {
     alignItems: 'center',

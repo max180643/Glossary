@@ -21,7 +21,7 @@ const CreateStack = (props) => {
         name="Create"
         component={Create}
         options={{
-          title: 'Create Glossary',
+          title: i18n.t('CreateGlossary.Title'),
           headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
