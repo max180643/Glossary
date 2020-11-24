@@ -1,5 +1,6 @@
 const colors = {
   primary: 'skyblue',
+  secondary: 'orange',
   correct: 'skyblue',
   incorrect: 'orange',
   boxFilled: 'orange',

@@ -9,6 +9,9 @@ import colors from '../constants/colors';
 import CustomHeaderButton from '../components/navigations/CustomHeaderButton';
 
 const MyVocabList = (props) => {
+  const { route } = props;
+  const { data } = route.params;
+
   useEffect(() => {
     props.navigation.setOptions({
       headerLeft: () => (
@@ -46,7 +49,7 @@ const MyVocabList = (props) => {
           </Layout>
         </Layout>
       </TouchableOpacity>
-      <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('Charades')}>
+      <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('Charades', { data })}>
         <Layout style={styles.card}>
           <Layout style={styles.choice}>
             <Text style={{ fontSize: 30 }}>ทายคำ</Text>
