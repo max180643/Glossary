@@ -40,10 +40,12 @@ const FillInScreen = (props) => {
 
       //   Game
       const [answerBox, hint, indexShow] = randomShow(questionList[problem + 1].en.toUpperCase());
-      setAnswerShow(answerBox);
-      setSaveHint(hint);
-      setSaveIndexShow(indexShow);
-      SetGuessList(guessRandom(questionList[problem + 1].en.toUpperCase(), saveIndexShow));
+      setAnswerShow([...answerBox]);
+      setSaveHint([...hint]);
+      setSaveIndexShow([...indexShow]);
+      setCalIndexShow([...indexShow]);
+      SetGuessList(guessRandom(questionList[problem + 1].en.toUpperCase(), [...indexShow]));
+      setCheckGuessTouch(Array(9).fill(false));
     } else {
       setScoreModal(true);
     }
@@ -72,17 +74,32 @@ const FillInScreen = (props) => {
     for (i = 0; i < item.length; i++) {
       if (!listIndexToShow.includes(i)) listNotShow.push(item[i]);
     }
-    console.log('---------------------');
-    console.log(`item ${item}`);
-    console.log(`listIndexToShow ${listIndexToShow}`);
-    console.log(`Real: ${listNotShow}`);
     while (listNotShow.length < 9) {
       listNotShow.push(listAlphabet[Math.floor(Math.random() * listAlphabet.length)]);
     }
-    console.log(`Random: ${listNotShow}`);
     return shuffle(listNotShow);
   };
 
+  const checkPosition = (item) => {
+    let check = 0;
+    while (item.sort().includes(check)) {
+      check += 1;
+    }
+    calIndexShow.push(check);
+    return check;
+  };
+
+  const checkAutoAnswer = (item) => {
+    const copy = [...answerShow];
+    const index = copy.indexOf('');
+    if (index !== -1) copy[index] = item;
+    if (calIndexShow.length === answerText.length) {
+      if (copy.join('') === answerText.join('')) {
+        setScore(score + 1);
+        nextQuestion();
+      }
+    }
+  };
   const questionList = [
     {
       en: 'Cat', th: 'แมว',
@@ -107,13 +124,14 @@ const FillInScreen = (props) => {
   const [questionText, setQuestionText] = useState(questionList[problem].th);
   const [answerText, setAnswerText] = useState((questionList[problem].en.toUpperCase()).split(''));
   const [answerBox, hint, indexShow] = randomShow(questionList[problem].en.toUpperCase());
-  const [answerShow, setAnswerShow] = useState(answerBox);
-  const [saveHint, setSaveHint] = useState(hint);
-  const [saveIndexShow, setSaveIndexShow] = useState(indexShow);
-  const [guessList, SetGuessList] = useState(guessRandom(questionList[problem].en.toUpperCase(), saveIndexShow));
-  const [checkTouch, setCheckTouch] = useState(Array(9).fill(false));
-
-  console.log(`Guess: ${guessList}`);
+  const [answerShow, setAnswerShow] = useState([...answerBox]);
+  const [saveHint, setSaveHint] = useState([...hint]);
+  const [saveIndexShow, setSaveIndexShow] = useState([...indexShow]);
+  const [calIndexShow, setCalIndexShow] = useState([...indexShow]);
+  const [guessList, SetGuessList] = useState(
+    problem !== 0 ? [] : guessRandom(questionList[problem].en.toUpperCase(), saveIndexShow),
+  );
+  const [checkGuessTouch, setCheckGuessTouch] = useState(Array(9).fill(false));
 
   return (
     <View style={styles.screen}>
@@ -155,30 +173,77 @@ const FillInScreen = (props) => {
             <Text style={styles.toolText}>ข้าม</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.resetField}>
-            <Text style={styles.toolText} onPress={() => setAnswerShow(saveHint)}>รีเซ็ท</Text>
+            <Text
+              style={styles.toolText}
+              onPress={() => {
+                setAnswerShow([...saveHint]);
+                setCalIndexShow([...saveIndexShow]);
+                setCheckGuessTouch(Array(9).fill(false));
+              }}
+            >
+              รีเซ็ท
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
       <View style={styles.bottomField}>
-        {[guessList.slice(0, 3), guessList.slice(3, 6), guessList.slice(6, 9)].map((item) => (
+        {
+        [guessList.slice(0, 3), guessList.slice(3, 6), guessList.slice(6, 9)].map((item, index) => (
           <View>
-            {/* <TouchableOpacity
-              style={checkTouch ? styles.guessBoxTouch : styles.guessBox}
+            <TouchableOpacity
+              style={checkGuessTouch[0] ? styles.guessBoxTouch : styles.guessBox}
               onPress={() => {
-                setAnswerShow(() => {
-                  const c = answerShow;
-                  c[0] = item[0];
-                  return c;
-                });
+                if (calIndexShow.length < answerText.length && !checkGuessTouch[index * 3 + 0]) {
+                  const pos = checkPosition(calIndexShow);
+                  setAnswerShow(() => {
+                    const markers = [...answerShow];
+                    markers[pos] = item[0];
+                    checkGuessTouch[index * 3 + 0] = true;
+                    return markers;
+                  });
+                  checkAutoAnswer(item[0]);
+                }
               }}
             >
-              <Text style={styles.guessText}>{item[0]}</Text> */}
-            {/* </TouchableOpacity> */}
-            <TouchableOpacity style={styles.guessBox}><Text style={styles.guessText}>{item[0]}</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.guessBox}><Text style={styles.guessText}>{item[1]}</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.guessBox}><Text style={styles.guessText}>{item[2]}</Text></TouchableOpacity>
+              <Text style={styles.guessText}>{item[0]}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={checkGuessTouch[1] ? styles.guessBoxTouch : styles.guessBox}
+              onPress={() => {
+                if (calIndexShow.length < answerText.length && !checkGuessTouch[index * 3 + 1]) {
+                  const pos = checkPosition(calIndexShow);
+                  setAnswerShow(() => {
+                    const markers = [...answerShow];
+                    markers[pos] = item[1];
+                    checkGuessTouch[index * 3 + 1] = true;
+                    return markers;
+                  });
+                  checkAutoAnswer(item[1]);
+                }
+              }}
+            >
+              <Text style={styles.guessText}>{item[1]}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={checkGuessTouch[2] ? styles.guessBoxTouch : styles.guessBox}
+              onPress={() => {
+                if (calIndexShow.length < answerText.length && !checkGuessTouch[index * 3 + 2]) {
+                  const pos = checkPosition(calIndexShow);
+                  setAnswerShow(() => {
+                    const markers = [...answerShow];
+                    markers[pos] = item[2];
+                    checkGuessTouch[index * 3 + 2] = true;
+                    return markers;
+                  });
+                  checkAutoAnswer(item[2]);
+                }
+              }}
+            >
+              <Text style={styles.guessText}>{item[2]}</Text>
+            </TouchableOpacity>
           </View>
-        ))}
+        ))
+        }
       </View>
     </View>
   );
@@ -199,6 +264,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     marginTop: -75,
+    justifyContent: 'space-around',
   },
   questionField: {
     flex: 0.35,
@@ -244,6 +310,15 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 10,
     backgroundColor: colors.primary,
+  },
+  guessBoxTouch: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 110,
+    margin: 5,
+    borderRadius: 10,
+    backgroundColor: 'silver',
   },
   guessText: {
     fontWeight: 'bold',
