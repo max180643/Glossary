@@ -97,8 +97,7 @@ const ChoiceScreen = (props) => {
           </Text>
           <TouchableOpacity
             style={styles.homeButton}
-
-            // onPress={() => props.navigation.navigate('Home')}
+            onPress={() => props.navigation.goBack()}
           >
             <Text style={styles.homeText}>Back To Home</Text>
           </TouchableOpacity>

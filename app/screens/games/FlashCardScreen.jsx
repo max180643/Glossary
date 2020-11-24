@@ -26,11 +26,11 @@ const FlashCardScreen = (props) => {
       setTimeout(() => {
         setProblem(problem + 1);
         setQuestionBox(questionList[problem + 1].en);
-      }, 1000);
+      }, 500);
       setQuestionBox(questionList[problem].th);
     } else {
       setQuestionBox(questionList[problem].th);
-      setTimeout(() => { setScoreModal(true); }, 1000);
+      setTimeout(() => { setScoreModal(true); }, 500);
     }
   };
 
@@ -73,8 +73,7 @@ const FlashCardScreen = (props) => {
           </Text>
           <TouchableOpacity
             style={styles.homeButton}
-
-            // onPress={() => props.navigation.navigate('Home')}
+            onPress={() => props.navigation.goBack()}
           >
             <Text style={styles.homeText}>Back To Home</Text>
           </TouchableOpacity>
