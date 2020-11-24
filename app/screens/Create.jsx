@@ -8,10 +8,12 @@ import {
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import axios from 'axios';
 import Constants from 'expo-constants';
+import { useRecoilValue } from 'recoil';
 import IconImage from '../assets/profile.png';
 import colors from '../constants/colors';
 import EvaIcon from '../components/EvaIcon';
 import CreateVocab from '../components/Create/CreateVocab';
+import { UserID, UserName } from '../states/auth';
 
 const Create = (props) => {
   const [GlossaryName, setGlossaryName] = useState('');
@@ -21,6 +23,9 @@ const Create = (props) => {
   const [GlossaryList, setGlossaryList] = useState([]);
   const [Private, setPrivate] = useState(false);
   const [Loading, setLoading] = useState(false);
+
+  const UserIDData = useRecoilValue(UserID);
+  const UserNameData = useRecoilValue(UserName);
 
   const onCheckedChange = (isChecked) => {
     setPrivate(isChecked);
@@ -44,8 +49,8 @@ const Create = (props) => {
         name: GlossaryName,
         description: Description,
         type: Private === true ? 'private' : 'unofficial',
-        owner: 'nipnew',
-        owner_id: 1,
+        owner: UserNameData,
+        owner_id: UserIDData,
         glossary: GlossaryList,
       }).then(() => {
         setGlossaryName('');

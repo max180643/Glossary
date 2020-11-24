@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Spinner } from '@ui-kitten/components';
+import { Layout, Spinner, Text } from '@ui-kitten/components';
 import { StyleSheet, FlatList } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
@@ -18,7 +18,7 @@ const MyVocab = () => {
   const [Refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    axios.get(`${Constants.manifest.extra.URL_API}/api/data/glossary?id=1`).then((res) => {
+    axios.get(`${Constants.manifest.extra.URL_API}/api/data/glossary?id=${UserIDData}`).then((res) => {
       setMyGlossary(res.data.response);
       setLoading(false);
     });
@@ -26,7 +26,7 @@ const MyVocab = () => {
 
   const handleRefresh = () => {
     setRefreshing(true);
-    axios.get(`${Constants.manifest.extra.URL_API}/api/data/glossary?id=1`).then((res) => {
+    axios.get(`${Constants.manifest.extra.URL_API}/api/data/glossary?id=${UserIDData}`).then((res) => {
       setMyGlossary(res.data.response);
       setRefreshing(false);
     });
@@ -34,7 +34,7 @@ const MyVocab = () => {
 
   const handleReload = () => {
     setLoading(true);
-    axios.get(`${Constants.manifest.extra.URL_API}/api/data/glossary?id=nipnew`).then((res) => {
+    axios.get(`${Constants.manifest.extra.URL_API}/api/data/glossary?id=${UserIDData}`).then((res) => {
       setMyGlossary(res.data.response);
       setLoading(false);
     });
@@ -44,7 +44,7 @@ const MyVocab = () => {
     <Layout style={styles.container} locate={LocateData}>
       {Loading ? <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner size="large" style={{ borderColor: colors.primary }} /></Layout> : []}
 
-      {!Loading
+      {!Loading && MyGlossary.length > 0
         ? (
           <FlatList
             data={MyGlossary}
@@ -55,6 +55,9 @@ const MyVocab = () => {
           />
         )
         : []}
+
+      {!Loading && MyGlossary.length === 0 ? <Layout style={{ flex: 1, justifyContent: 'center' }}><Text>ไม่พบชุดคำศัพท์</Text></Layout> : []}
+
     </Layout>
   );
 };
@@ -62,6 +65,7 @@ const MyVocab = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
   },
 });
 
