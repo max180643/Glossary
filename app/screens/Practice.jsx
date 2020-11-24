@@ -28,10 +28,10 @@ const Practice = (props) => {
   return (
     <Layout style={styles.container}>
       <Text style={{ fontSize: 40, marginVertical: 20 }}>TOEIC 2020</Text>
-      <Vocab />
-      <Vocab />
-      <Vocab />
-      <Vocab />
+      <Vocab words={['opposition', 'ความขัดแย้ง']} />
+      <Vocab words={['omit', 'ละไว้']} />
+      <Vocab words={['collaborate', 'ร่วมกับคนอื่น']} />
+      <Vocab words={['renovate', 'ซ่อมแซม']} />
     </Layout>
   );
 };
