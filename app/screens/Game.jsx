@@ -1,16 +1,21 @@
-import React, { useEffect } from 'react';
-import { Layout } from '@ui-kitten/components';
+import React, { useState, useEffect } from 'react';
+import { Layout, Spinner } from '@ui-kitten/components';
 import {
   StyleSheet, TouchableOpacity, Text,
 } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import axios from 'axios';
+import Constants from 'expo-constants';
 import colors from '../constants/colors';
 import CustomHeaderButton from '../components/navigations/CustomHeaderButton';
 
 const MyVocabList = (props) => {
   const { route } = props;
   const { data } = route.params;
+
+  const [Loading, setLoading] = useState(true);
+  const [VocabData, setVocabData] = useState([]);
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -24,38 +29,51 @@ const MyVocabList = (props) => {
         </HeaderButtons>
       ),
     });
+
+    axios.get(`${Constants.manifest.extra.URL_API}/api/data/glossary_data?id=${data.id}`).then((res) => {
+      setVocabData(res.data.response);
+      setLoading(false);
+    });
   }, []);
 
   return (
     <Layout style={styles.container}>
-      <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('Choice')}>
-        <Layout style={styles.card}>
-          <Layout style={styles.choice}>
-            <Text style={{ fontSize: 30 }}>ตัวเลือก</Text>
+      {Loading ? <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner size="large" style={{ borderColor: colors.primary }} /></Layout> : []}
+
+      {!Loading
+        ? (
+          <Layout>
+            <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('Choice', { data, VocabData })}>
+              <Layout style={styles.card}>
+                <Layout style={styles.choice}>
+                  <Text style={{ fontSize: 30 }}>ตัวเลือก</Text>
+                </Layout>
+              </Layout>
+            </TouchableOpacity>
+            <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('FlashCard', { data, VocabData })}>
+              <Layout style={styles.card}>
+                <Layout style={styles.choice}>
+                  <Text style={{ fontSize: 30 }}>เปิดคำศัพท์</Text>
+                </Layout>
+              </Layout>
+            </TouchableOpacity>
+            <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('FillIn', { data, VocabData })}>
+              <Layout style={styles.card}>
+                <Layout style={styles.choice}>
+                  <Text style={{ fontSize: 30 }}>เติมคำ</Text>
+                </Layout>
+              </Layout>
+            </TouchableOpacity>
+            <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('Charades', { data, VocabData })}>
+              <Layout style={styles.card}>
+                <Layout style={styles.choice}>
+                  <Text style={{ fontSize: 30 }}>ทายคำ</Text>
+                </Layout>
+              </Layout>
+            </TouchableOpacity>
           </Layout>
-        </Layout>
-      </TouchableOpacity>
-      <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('FlashCard')}>
-        <Layout style={styles.card}>
-          <Layout style={styles.choice}>
-            <Text style={{ fontSize: 30 }}>เปิดคำศัพท์</Text>
-          </Layout>
-        </Layout>
-      </TouchableOpacity>
-      <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('FillIn')}>
-        <Layout style={styles.card}>
-          <Layout style={styles.choice}>
-            <Text style={{ fontSize: 30 }}>เติมคำ</Text>
-          </Layout>
-        </Layout>
-      </TouchableOpacity>
-      <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('Charades', { data })}>
-        <Layout style={styles.card}>
-          <Layout style={styles.choice}>
-            <Text style={{ fontSize: 30 }}>ทายคำ</Text>
-          </Layout>
-        </Layout>
-      </TouchableOpacity>
+        )
+        : []}
     </Layout>
   );
 };
