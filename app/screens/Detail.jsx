@@ -27,7 +27,7 @@ const Detail = (props) => {
         </Layout>
         <Layout style={styles.textDetail}>
           <Text numberOfLines={1} ellipsizeMode="tail">
-            <EvaIcon color="pink" name="book-outline" size={16} />
+            <EvaIcon color="#98e5c6" name="book-outline" size={16} />
             <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>{` ${data.name}`}</Text>
           </Text>
           <Layout style={styles.textDetail}>
@@ -55,10 +55,10 @@ const Detail = (props) => {
       </Layout>
       <Layout style={styles.buttonDetail}>
         <TouchableOpacity style={styles.button}>
-          <Text>ฝึกฝน</Text>
+          <Text style={{ fontSize: 16 }} onPress={() => props.navigation.navigate('Practice')}>ฝึกฝน</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
-          <Text onPress={() => props.navigation.navigate('Game')}>เล่นเกม</Text>
+          <Text style={{ fontSize: 16 }} onPress={() => props.navigation.navigate('Game')}>เล่นเกม</Text>
         </TouchableOpacity>
       </Layout>
     </Layout>
@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   textDetail: {
-    padding: 5,
-    maxWidth: wp('50%'),
+    padding: 2,
+    maxWidth: wp('40%'),
   },
   vocabName: {
     flexDirection: 'row',
@@ -100,23 +100,25 @@ const styles = StyleSheet.create({
   flexRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 10,
+    width: wp('80%'),
   },
   vocabDetail: {
     padding: wp('5%'),
     marginHorizontal: wp('5%'),
     backgroundColor: '#edf0f4',
     marginVertical: hp('2%'),
-    width: wp('80%'),
+    width: wp('85%'),
   },
   button: {
     backgroundColor: 'orange',
-    padding: 5,
+    padding: 10,
     borderRadius: 10,
     margin: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    width: wp('20%'),
-    height: hp('5%'),
+    width: wp('25%'),
+    height: hp('8%'),
   },
   buttonDetail: {
     flexDirection: 'row',

@@ -11,6 +11,7 @@ import colors from '../constants/colors';
 import Home from '../screens/Home';
 import Detail from '../screens/Detail';
 import Game from '../screens/Game';
+import Practice from '../screens/Practice';
 
 const MainStack = (props) => {
   const LocateData = useRecoilValue(Locate);
@@ -72,6 +73,23 @@ const MainStack = (props) => {
         component={Game}
         options={{
           title: 'Game',
+          headerStyle: { backgroundColor: colors.primary },
+          headerLeft: () => (
+            <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+              <Item
+                title="Menu"
+                iconName="ios-arrow-back"
+                onPress={() => props.navigation.goBack()}
+              />
+            </HeaderButtons>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Practice"
+        component={Practice}
+        options={{
+          title: 'Practice',
           headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
