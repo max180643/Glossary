@@ -8,12 +8,12 @@ import {
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import axios from 'axios';
 import Constants from 'expo-constants';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import IconImage from '../assets/profile.png';
 import colors from '../constants/colors';
 import EvaIcon from '../components/EvaIcon';
 import CreateVocab from '../components/Create/CreateVocab';
-import { Locate } from '../states/atom';
+import { Locate, CreateRefresh } from '../states/atom';
 import { UserID, UserName } from '../states/auth';
 import i18n from '../lang/i18n';
 
@@ -29,6 +29,7 @@ const Create = (props) => {
   const UserIDData = useRecoilValue(UserID);
   const UserNameData = useRecoilValue(UserName);
   const LocateData = useRecoilValue(Locate);
+  const [CreateRefreshData, setCreateRefreshData] = useRecoilState(CreateRefresh);
 
   const onCheckedChange = (isChecked) => {
     setPrivate(isChecked);
@@ -62,6 +63,7 @@ const Create = (props) => {
         setMeaning('');
         setGlossaryList([]);
         props.navigation.navigate('MyVocab');
+        setCreateRefreshData(!CreateRefreshData);
         setLoading(false);
       });
     } else if (GlossaryList.length < 5) {

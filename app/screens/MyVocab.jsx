@@ -5,13 +5,14 @@ import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 import Constants from 'expo-constants';
 import MyVocabList from '../components/MyVocab/MyVocabList';
-import { Locate } from '../states/atom';
+import { Locate, CreateRefresh } from '../states/atom';
 import { UserID } from '../states/auth';
 import colors from '../constants/colors';
 
 const MyVocab = () => {
   const LocateData = useRecoilValue(Locate);
   const UserIDData = useRecoilValue(UserID);
+  const CreateRefreshData = useRecoilValue(CreateRefresh);
 
   const [MyGlossary, setMyGlossary] = useState([]);
   const [Loading, setLoading] = useState(true);
@@ -41,7 +42,7 @@ const MyVocab = () => {
   };
 
   return (
-    <Layout style={styles.container} locate={LocateData}>
+    <Layout style={styles.container} locate={LocateData} refresh={CreateRefreshData}>
       {Loading ? <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner size="large" style={{ borderColor: colors.primary }} /></Layout> : []}
 
       {!Loading && MyGlossary.length > 0

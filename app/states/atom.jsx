@@ -13,4 +13,9 @@ export const Search = atom({
   default: false,
 });
 
+export const CreateRefresh = atom({
+  key: 'CreateRefreshData',
+  default: false,
+});
+
 export default 'atom';
