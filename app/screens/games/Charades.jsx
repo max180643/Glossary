@@ -4,17 +4,24 @@ import {
 } from 'react-native';
 import { DeviceMotion } from 'expo-sensors';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomHeaderButton from '../../components/navigations/CustomHeaderButton';
+import EvaIcon from '../../components/EvaIcon';
+import colors from '../../constants/colors';
 
 // screen status
 // [1] waiting, [2] playing, [3] finish
 
 const Charades = (props) => {
+  const { route } = props;
+  const { VocabData } = route.params;
+
   const [status, setStatus] = useState('waiting');
   const [displayText, setDisplayText] = useState('หันจอไปทางเพื่อน');
+  const [displayTextSmall, setDisplayTextSmall] = useState('');
   const [check, setCheck] = useState(null);
 
-  const [word, setWord] = useState(['1', '2', '3', '4', '5', '6', '7']);
+  const [word, setWord] = useState(VocabData);
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -31,16 +38,21 @@ const Charades = (props) => {
   }, []);
 
   const skipWord = () => {
-    setWord(word.slice(1));
-    setDisplayText(word[0]);
+    try {
+      setWord(word.slice(1));
+      setDisplayText(word[0].en);
+      setDisplayTextSmall(word[0].th);
+    } catch (error) {
+      setStatus('finish');
+    }
   };
 
   const gameStart = (event) => {
     const getPosition = event.accelerationIncludingGravity;
-    if (getPosition.z >= 6 && check !== 'pass') { setCheck('pass'); setDisplayText('ถูกต้อง'); }
-    if (getPosition.z <= -6 && check !== 'skip') { setCheck('skip'); setDisplayText('ข้าม'); }
+    if (getPosition.z >= 6 && check !== 'pass') { setCheck('pass'); setDisplayText('ถูกต้อง'); setDisplayTextSmall(''); }
+    if (getPosition.z <= -6 && check !== 'skip') { setCheck('skip'); setDisplayText('ข้าม'); setDisplayTextSmall(''); }
     if (getPosition.z > -6 && getPosition.z < 6 && check !== 'reset') { setCheck('reset'); skipWord(); }
-    console.log(`z: ${getPosition.z}, ${check}, ${displayText}`);
+    console.log(`z: ${getPosition.z}, ${check}, ${displayText}, ${status}`);
   };
 
   const checkDeviceRotate = (event) => {
@@ -65,6 +77,40 @@ const Charades = (props) => {
     return 'white';
   };
 
+  const Content = () => {
+    if (status === 'waiting') {
+      return (
+        <TouchableOpacity style={styles.button} onPress={() => setStatus('playing')}>
+          <Text style={{ fontSize: RFPercentage(3) }}>
+            <EvaIcon
+              color="black"
+              name="play-circle-outline"
+              size={RFPercentage(3)}
+            />
+            {' '}
+            เริ่มเกม
+          </Text>
+        </TouchableOpacity>
+      );
+    }
+    if (status === 'playing') {
+      addDeviceMotion();
+      return (
+        <View style={{ alignItems: 'center', ...styles.rotateText }}>
+          <Text style={styles.textBig}>{displayText}</Text>
+          <Text style={styles.textSmall}>{displayTextSmall}</Text>
+        </View>
+      );
+    }
+    if (status === 'finish') {
+      DeviceMotion.removeAllListeners();
+      return (
+        <Text>จบเกม</Text>
+      );
+    }
+    return null;
+  };
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -72,37 +118,21 @@ const Charades = (props) => {
       justifyContent: 'center',
       alignItems: 'center',
     },
-    text: {
-      fontSize: 50,
+    rotateText: {
       transform: [{ rotate: '90deg' }],
     },
+    textBig: {
+      fontSize: RFPercentage(7),
+    },
+    textSmall: {
+      fontSize: RFPercentage(4),
+    },
     button: {
-      backgroundColor: 'white',
+      backgroundColor: colors.secondary,
       padding: 10,
+      borderRadius: 5,
     },
   });
-
-  const Content = () => {
-    if (status === 'waiting') {
-      return (
-        <TouchableOpacity style={styles.button} onPress={() => setStatus('playing')}>
-          <Text>เริ่มเกม</Text>
-        </TouchableOpacity>
-      );
-    }
-    if (status === 'playing') {
-      addDeviceMotion();
-      return (
-        <Text style={styles.text}>{displayText}</Text>
-      );
-    }
-    if (status === 'finish') {
-      return (
-        <Text>จบเกม</Text>
-      );
-    }
-    return null;
-  };
 
   return (
     <View style={styles.container}>
