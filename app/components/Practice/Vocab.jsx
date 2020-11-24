@@ -8,13 +8,13 @@ import {
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import colors from '../../constants/colors';
 
-const Practice = ({ words }) => (
+const Practice = ({ item }) => (
   <Layout style={styles.vocabDetail}>
     <Layout style={styles.vocabLayout}>
-      <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{words[0]}</Text>
+      <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.en.trim()}</Text>
     </Layout>
     <Layout style={styles.transalateLayout}>
-      <Text style={{ fontSize: 16 }}>{words[1]}</Text>
+      <Text style={{ fontSize: 16 }}>{item.th.trim()}</Text>
     </Layout>
   </Layout>
 );

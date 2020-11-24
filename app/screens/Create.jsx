@@ -37,7 +37,7 @@ const Create = (props) => {
 
   const addGlossary = () => {
     if (Word !== '' && Meaning !== '') {
-      const WordData = { en: Word, th: Meaning };
+      const WordData = { en: Word.trim(), th: Meaning.trim() };
       const GlossaryData = GlossaryList;
       GlossaryData.push(WordData);
       setGlossaryList(GlossaryData);
@@ -50,8 +50,8 @@ const Create = (props) => {
     if (GlossaryName !== '' && Description !== '' && GlossaryList.length >= 5) {
       setLoading(true);
       axios.post(`${Constants.manifest.extra.URL_API}/api/create/glossary`, {
-        name: GlossaryName,
-        description: Description,
+        name: GlossaryName.trim(),
+        description: Description.trim(),
         type: Private === true ? 'private' : 'unofficial',
         owner: UserNameData,
         owner_id: UserIDData,

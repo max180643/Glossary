@@ -70,7 +70,7 @@ const Detail = (props) => {
         <Text style={styles.vocabDetail}>{`        ${data.description}`}</Text>
       </Layout>
       <Layout style={styles.buttonDetail}>
-        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Practice')} delayPressIn={0}>
+        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Practice', { data })} delayPressIn={0}>
           <Text style={{ fontSize: 16 }}>ฝึกฝน</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Game')} delayPressIn={0}>

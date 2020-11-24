@@ -1,16 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  StyleSheet, Text,
+  StyleSheet, Text, FlatList,
 } from 'react-native';
 import {
-  Layout,
+  Layout, Spinner,
 } from '@ui-kitten/components';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import axios from 'axios';
+import Constants from 'expo-constants';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import Vocab from '../components/Practice/Vocab';
 import CustomHeaderButton from '../components/navigations/CustomHeaderButton';
+import colors from '../constants/colors';
 
 const Practice = (props) => {
+  const { route } = props;
+  const { data } = route.params;
+
+  const [Loading, setLoading] = useState(true);
+  const [VocabData, setVocabData] = useState([]);
+
   useEffect(() => {
     props.navigation.setOptions({
       headerLeft: () => (
@@ -23,15 +32,27 @@ const Practice = (props) => {
         </HeaderButtons>
       ),
     });
+
+    axios.get(`${Constants.manifest.extra.URL_API}/api/data/glossary_data?id=${data.id}`).then((res) => {
+      setVocabData(res.data.response);
+      setLoading(false);
+    });
   }, []);
 
   return (
     <Layout style={styles.container}>
-      <Text style={{ fontSize: 40, marginVertical: 20 }}>TOEIC 2020</Text>
-      <Vocab words={['opposition', 'ความขัดแย้ง']} />
-      <Vocab words={['omit', 'ละไว้']} />
-      <Vocab words={['collaborate', 'ร่วมกับคนอื่น']} />
-      <Vocab words={['renovate', 'ซ่อมแซม']} />
+      {Loading ? <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner size="large" style={{ borderColor: colors.primary }} /></Layout> : []}
+
+      {!Loading ? (
+        <Layout style={{ alignItems: 'center' }}>
+          <Text style={{ fontSize: RFPercentage(4), marginVertical: 20 }}>{data.name}</Text>
+          <FlatList
+            data={VocabData}
+            renderItem={Vocab}
+            keyExtractor={(item) => item.en}
+          />
+        </Layout>
+      ) : []}
     </Layout>
   );
 };
