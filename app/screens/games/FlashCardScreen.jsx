@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     width: 250,
     borderRadius: 10,
-    backgroundColor: 'green',
+    backgroundColor: colors.correct,
   },
   incorrectField: {
     flex: 0.5,
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     width: 250,
     borderRadius: 10,
-    backgroundColor: 'red',
+    backgroundColor: colors.incorrect,
   },
   passText: {
     fontSize: 20,
