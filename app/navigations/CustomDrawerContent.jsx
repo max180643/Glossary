@@ -4,11 +4,13 @@ import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navi
 import { Avatar, Text, Icon } from '@ui-kitten/components';
 import { useRecoilValue } from 'recoil';
 import { IsLogin, UserName, UserPicture } from '../states/auth';
+import { Locate } from '../states/atom';
 import ProfileImage from '../assets/profile.png';
 import LoginButton from '../components/navigations/LoginButton';
 import LogoutButton from '../components/navigations/LogoutButton';
 import i18n from '../lang/i18n';
 import colors from '../constants/colors';
+import EvaIcon from '../components/EvaIcon';
 
 const CustomDrawerContent = (props) => {
   const { SwitchLanguage } = props;
@@ -16,9 +18,10 @@ const CustomDrawerContent = (props) => {
   const IsLoginData = useRecoilValue(IsLogin);
   const UserNameData = useRecoilValue(UserName);
   const UserPictureData = useRecoilValue(UserPicture);
+  const LocateData = useRecoilValue(Locate);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1 }} locate={LocateData}>
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>
@@ -36,12 +39,20 @@ const CustomDrawerContent = (props) => {
               && (
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 <View style={styles.total}>
-                  <Text category="h6">Total</Text>
-                  <Text category="s1">5</Text>
+                  <Text category="h6" style={{ marginBottom: 5 }}>
+                    <EvaIcon color="#ff7b14" name="book" size={15} />
+                    {' '}
+                    {i18n.t('Navigation.Total')}
+                  </Text>
+                  <Text category="s1">0</Text>
                 </View>
                 <View style={styles.like}>
-                  <Text category="h6">Like</Text>
-                  <Text category="s1">5</Text>
+                  <Text category="h6" style={{ marginBottom: 5 }}>
+                    <EvaIcon color="#ff3d71" name="heart" size={15} />
+                    {' '}
+                    {i18n.t('Navigation.Like')}
+                  </Text>
+                  <Text category="s1">0</Text>
                 </View>
               </View>
               )}

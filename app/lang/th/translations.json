@@ -6,7 +6,9 @@
     "CreateNewGlossary": "สร้างชุดคำศัพท์",
     "SwitchLanguage": "สลับภาษา",
     "SignIn": "เข้าสู่ระบบ",
-    "SignOut": "ออกจากระบบ"
+    "SignOut": "ออกจากระบบ",
+    "Total": "ทั้งหมด",
+    "Like": "ถูกใจ"
   },
   "Home": {
     "Title": "หน้าแรก",

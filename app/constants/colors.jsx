@@ -1,5 +1,5 @@
 const colors = {
-  primary: '#6eccf6',
+  primary: 'skyblue',
   correct: 'green',
   incorrect: 'red',
   boxFilled: 'orange',

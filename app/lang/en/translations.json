@@ -6,7 +6,9 @@
     "CreateNewGlossary": "Create new Glossary",
     "SwitchLanguage": "Switch language",
     "SignIn": "Sign In",
-    "SignOut": "Sign Out"
+    "SignOut": "Sign Out",
+    "Total": "Total",
+    "Like": "Like"
   },
   "Home": {
     "Title": "Home",
