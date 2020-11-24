@@ -9,7 +9,7 @@ import { Locate, CreateRefresh } from '../states/atom';
 import { UserID } from '../states/auth';
 import colors from '../constants/colors';
 
-const MyVocab = () => {
+const MyVocab = (props) => {
   const LocateData = useRecoilValue(Locate);
   const UserIDData = useRecoilValue(UserID);
   const CreateRefreshData = useRecoilValue(CreateRefresh);
@@ -41,6 +41,10 @@ const MyVocab = () => {
     });
   };
 
+  const handleDetail = (item) => {
+    props.navigation.navigate('Detail', { item });
+  };
+
   return (
     <Layout style={styles.container} locate={LocateData} refresh={CreateRefreshData}>
       {Loading ? <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner size="large" style={{ borderColor: colors.primary }} /></Layout> : []}
@@ -49,7 +53,13 @@ const MyVocab = () => {
         ? (
           <FlatList
             data={MyGlossary}
-            renderItem={({ item }) => <MyVocabList item={item} handleReload={handleReload} />}
+            renderItem={({ item }) => (
+              <MyVocabList
+                item={item}
+                handleReload={handleReload}
+                handleDetail={handleDetail}
+              />
+            )}
             keyExtractor={(item) => item.id.toString()}
             refreshing={Refreshing}
             onRefresh={handleRefresh}

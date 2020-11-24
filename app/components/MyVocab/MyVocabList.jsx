@@ -11,7 +11,7 @@ import colors from '../../constants/colors';
 import EvaIcon from '../EvaIcon';
 import i18n from '../../lang/i18n';
 
-const MyVocabList = ({ item, handleReload }) => {
+const MyVocabList = ({ item, handleReload, handleDetail }) => {
   const handleDelete = () => {
     Alert.alert(
       i18n.t('MyVocab.DeleteTitle'),
@@ -35,7 +35,7 @@ const MyVocabList = ({ item, handleReload }) => {
   };
 
   return (
-    <Layout style={styles.container}>
+    <TouchableOpacity style={styles.container} delayPressIn={0} onPress={() => handleDetail(item)}>
       <Layout style={styles.card}>
         <Layout style={styles.imageDetail}>
           <Image
@@ -58,7 +58,7 @@ const MyVocabList = ({ item, handleReload }) => {
           </Layout>
         </Layout>
       </Layout>
-    </Layout>
+    </TouchableOpacity>
   );
 };
 
