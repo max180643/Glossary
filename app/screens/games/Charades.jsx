@@ -1,18 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
 import { DeviceMotion } from 'expo-sensors';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import CustomHeaderButton from '../../components/navigations/CustomHeaderButton';
 
 // screen status
 // [1] waiting, [2] playing, [3] finish
 
-const Charades = () => {
+const Charades = (props) => {
   const [status, setStatus] = useState('waiting');
   const [displayText, setDisplayText] = useState('หันจอไปทางเพื่อน');
   const [check, setCheck] = useState(null);
 
   const [word, setWord] = useState(['1', '2', '3', '4', '5', '6', '7']);
+
+  useEffect(() => {
+    props.navigation.setOptions({
+      headerLeft: () => (
+        <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+          <Item
+            title="Menu"
+            iconName="ios-arrow-back"
+            onPress={() => props.navigation.goBack()}
+          />
+        </HeaderButtons>
+      ),
+    });
+  }, []);
 
   const skipWord = () => {
     setWord(word.slice(1));
@@ -46,7 +62,7 @@ const Charades = () => {
   const screenColor = (e) => {
     if (e === 'pass') return 'green';
     if (e === 'skip') return 'orange';
-    return 'pink';
+    return 'white';
   };
 
   const styles = StyleSheet.create({

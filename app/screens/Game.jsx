@@ -25,28 +25,28 @@ const MyVocabList = (props) => {
 
   return (
     <Layout style={styles.container}>
-      <TouchableOpacity delayPressIn={0}>
+      <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('Choice')}>
         <Layout style={styles.card}>
           <Layout style={styles.choice}>
             <Text style={{ fontSize: 30 }}>ตัวเลือก</Text>
           </Layout>
         </Layout>
       </TouchableOpacity>
-      <TouchableOpacity delayPressIn={0}>
+      <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('FlashCard')}>
         <Layout style={styles.card}>
           <Layout style={styles.choice}>
             <Text style={{ fontSize: 30 }}>เปิดคำศัพท์</Text>
           </Layout>
         </Layout>
       </TouchableOpacity>
-      <TouchableOpacity delayPressIn={0}>
+      <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('FillIn')}>
         <Layout style={styles.card}>
           <Layout style={styles.choice}>
             <Text style={{ fontSize: 30 }}>เติมคำ</Text>
           </Layout>
         </Layout>
       </TouchableOpacity>
-      <TouchableOpacity delayPressIn={0}>
+      <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('Charades')}>
         <Layout style={styles.card}>
           <Layout style={styles.choice}>
             <Text style={{ fontSize: 30 }}>ทายคำ</Text>

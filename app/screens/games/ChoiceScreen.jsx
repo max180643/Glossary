@@ -1,10 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View, Text, TouchableOpacity, StyleSheet, Modal,
 } from 'react-native';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import colors from '../../constants/colors';
+import CustomHeaderButton from '../../components/navigations/CustomHeaderButton';
 
 const ChoiceScreen = (props) => {
+  useEffect(() => {
+    props.navigation.setOptions({
+      headerLeft: () => (
+        <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+          <Item
+            title="Menu"
+            iconName="ios-arrow-back"
+            onPress={() => props.navigation.goBack()}
+          />
+        </HeaderButtons>
+      ),
+    });
+  }, []);
+
   const shuffle = (item) => {
     let i; let j; let c;
     for (i = item.length - 1; i > 0; i--) {

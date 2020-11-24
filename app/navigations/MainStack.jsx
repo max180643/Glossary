@@ -13,6 +13,12 @@ import Detail from '../screens/Detail';
 import Game from '../screens/Game';
 import Practice from '../screens/Practice';
 
+// games
+import Choice from '../screens/games/ChoiceScreen';
+import FlashCard from '../screens/games/FlashCardScreen';
+import FillIn from '../screens/games/FillInScreen';
+import Charades from '../screens/games/Charades';
+
 const MainStack = (props) => {
   const LocateData = useRecoilValue(Locate);
   const [SearchData, setSearchData] = useRecoilState(Search);
@@ -72,6 +78,38 @@ const MainStack = (props) => {
         component={Practice}
         options={{
           title: 'Practice',
+          headerStyle: { backgroundColor: colors.primary },
+        }}
+      />
+      <Stack.Screen
+        name="Choice"
+        component={Choice}
+        options={{
+          title: 'Choice',
+          headerStyle: { backgroundColor: colors.primary },
+        }}
+      />
+      <Stack.Screen
+        name="FlashCard"
+        component={FlashCard}
+        options={{
+          title: 'FlashCard',
+          headerStyle: { backgroundColor: colors.primary },
+        }}
+      />
+      <Stack.Screen
+        name="FillIn"
+        component={FillIn}
+        options={{
+          title: 'FillIn',
+          headerStyle: { backgroundColor: colors.primary },
+        }}
+      />
+      <Stack.Screen
+        name="Charades"
+        component={Charades}
+        options={{
+          title: 'Charades',
           headerStyle: { backgroundColor: colors.primary },
         }}
       />
