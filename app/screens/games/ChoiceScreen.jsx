@@ -3,10 +3,14 @@ import {
   View, Text, TouchableOpacity, StyleSheet, Modal,
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import colors from '../../constants/colors';
 import CustomHeaderButton from '../../components/navigations/CustomHeaderButton';
 
 const ChoiceScreen = (props) => {
+  const { route } = props;
+  const { data, VocabData } = route.params;
+
   useEffect(() => {
     props.navigation.setOptions({
       headerLeft: () => (
@@ -55,24 +59,7 @@ const ChoiceScreen = (props) => {
     }
   };
 
-  const questionList = [
-    {
-      en: 'Cat', th: 'แมว',
-    },
-    {
-      en: 'Dog', th: 'หมา',
-    },
-    {
-      en: 'Bird', th: 'นก',
-    },
-    {
-      en: 'Chair', th: 'เก้าอี้',
-    },
-    {
-      en: 'Tree', th: 'ต้นไม้',
-    },
-  ];
-
+  const questionList = VocabData;
   const [problem, setProblem] = useState(0);
   const [score, setScore] = useState(0);
   const [ScoreModal, setScoreModal] = useState(false);
@@ -141,7 +128,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   questionText: {
-    fontSize: 60,
+    fontSize: RFPercentage(6),
     fontWeight: 'bold',
   },
   answerField: {
@@ -159,7 +146,7 @@ const styles = StyleSheet.create({
   answerText: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: RFPercentage(3),
   },
   scoreModal: {
     flex: 1,
@@ -168,28 +155,28 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   mTitleText: {
-    fontSize: 70,
+    fontSize: RFPercentage(10),
     fontWeight: 'bold',
     marginBottom: 25,
   },
   mSubTitleText: {
-    fontSize: 20,
+    fontSize: RFPercentage(3),
     fontWeight: 'bold',
   },
   mScoreText: {
-    fontSize: 80,
+    fontSize: RFPercentage(12),
     fontWeight: 'bold',
   },
   homeButton: {
-    backgroundColor: colors.primary,
     borderRadius: 10,
     marginTop: 20,
     padding: 10,
+    backgroundColor: colors.primary,
   },
   homeText: {
-    color: 'white',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: RFPercentage(3),
+    color: 'white',
   },
 });
 

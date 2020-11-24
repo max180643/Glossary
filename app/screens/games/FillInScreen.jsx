@@ -3,10 +3,14 @@ import {
   View, Text, TouchableOpacity, StyleSheet, Modal,
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import colors from '../../constants/colors';
 import CustomHeaderButton from '../../components/navigations/CustomHeaderButton';
 
 const FillInScreen = (props) => {
+  const { route } = props;
+  const { data, VocabData } = route.params;
+
   useEffect(() => {
     props.navigation.setOptions({
       headerLeft: () => (
@@ -100,24 +104,8 @@ const FillInScreen = (props) => {
       }
     }
   };
-  const questionList = [
-    {
-      en: 'Cat', th: 'แมว',
-    },
-    {
-      en: 'Dog', th: 'หมา',
-    },
-    {
-      en: 'Bird', th: 'นก',
-    },
-    {
-      en: 'Chair', th: 'เก้าอี้',
-    },
-    {
-      en: 'Tree', th: 'ต้นไม้',
-    },
-  ];
 
+  const questionList = VocabData;
   const [problem, setProblem] = useState(0);
   const [score, setScore] = useState(0);
   const [ScoreModal, setScoreModal] = useState(false);
@@ -272,7 +260,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   questionText: {
-    fontSize: 60,
+    fontSize: RFPercentage(5),
     fontWeight: 'bold',
   },
   answerField: {
@@ -298,7 +286,7 @@ const styles = StyleSheet.create({
   },
   answerText: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: RFPercentage(4),
     color: 'white',
   },
   guessBox: {
@@ -317,11 +305,12 @@ const styles = StyleSheet.create({
     width: 110,
     margin: 5,
     borderRadius: 10,
-    backgroundColor: 'silver',
+    backgroundColor: colors.primary,
+    opacity: 0.25,
   },
   guessText: {
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: RFPercentage(4),
     color: 'white',
   },
   toolField: {
@@ -348,7 +337,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.toolReset,
   },
   toolText: {
-    fontSize: 15,
+    fontSize: RFPercentage(3),
     fontWeight: 'bold',
     color: 'white',
   },
@@ -359,16 +348,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   mTitleText: {
-    fontSize: 70,
+    fontSize: RFPercentage(10),
     fontWeight: 'bold',
     marginBottom: 25,
   },
   mSubTitleText: {
-    fontSize: 20,
+    fontSize: RFPercentage(3),
     fontWeight: 'bold',
   },
   mScoreText: {
-    fontSize: 80,
+    fontSize: RFPercentage(12),
     fontWeight: 'bold',
   },
   homeButton: {
@@ -379,7 +368,7 @@ const styles = StyleSheet.create({
   },
   homeText: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: RFPercentage(3),
     color: 'white',
   },
 });
