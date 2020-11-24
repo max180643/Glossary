@@ -18,7 +18,7 @@ const VocabList = ({ item, handleDetail }) => (
       <Text numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
       <Text>
         <EvaIcon color="#ff3d71" name="heart" size={15} />
-        <Text>{` ${item.like}`}</Text>
+        <Text>{` ${item.like.length}`}</Text>
       </Text>
     </Layout>
   </TouchableOpacity>
