@@ -61,7 +61,7 @@ const Detail = (props) => {
           <Layout style={styles.textDetail}>
             <Text>
               <EvaIcon color="#ff3d71" name="heart" size={15} />
-              <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>{` ${data.like}`}</Text>
+              <Text style={{ maxWidth: wp('40%'), fontSize: 18 }}>{` ${data.like.length}`}</Text>
             </Text>
           </Layout>
         </Layout>
