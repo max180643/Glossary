@@ -29,7 +29,7 @@
   },
   "CreateGlossary": {
     "Title": "Create Glossary",
-    "Private": "Private Glossary",
+    "Private": "Private",
     "Name": "Glossary name",
     "Description": "description",
     "Word": "Word",

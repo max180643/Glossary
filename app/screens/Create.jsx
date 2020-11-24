@@ -126,7 +126,7 @@ const Create = (props) => {
             </Layout>
             <Layout style={{ marginBottom: 20 }}>
               <Toggle checked={Private} onChange={onCheckedChange} style={{ margin: 5 }} status="info">
-                {i18n.t('CreateGlossary.Title')}
+                {i18n.t('CreateGlossary.Private')}
               </Toggle>
             </Layout>
             <Layout style={styles.textDetail}>
