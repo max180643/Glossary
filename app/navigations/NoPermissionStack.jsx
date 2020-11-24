@@ -21,7 +21,7 @@ const NoPermissionStack = (props) => {
         name="NoPermission"
         component={NoPermission}
         options={{
-          title: 'No Permission',
+          title: i18n.t('NoPermission.Title'),
           headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>

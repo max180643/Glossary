@@ -43,5 +43,9 @@
     "DeleteMsg": "",
     "Cancel": "Cancel",
     "Delete": "Delete"
+  },
+  "NoPermission": {
+    "Title": "Required Login",
+    "Msg": "You need to sign in to continue !"
   }
 }
