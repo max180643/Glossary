@@ -21,7 +21,13 @@ const FillInScreen = (props) => {
       setProblem(problem + 1);
       setQuestionText(questionList[problem + 1].th);
       setAnswerText((questionList[problem + 1].en.toUpperCase()).split(''));
-      setAnswerShow(randomShow(questionList[problem + 1].en.toUpperCase()));
+
+      //   Game
+      const [answerBox, hint, indexShow] = randomShow(questionList[problem + 1].en.toUpperCase());
+      setAnswerShow(answerBox);
+      setSaveHint(hint);
+      setSaveIndexShow(indexShow);
+      SetGuessList(guessRandom(questionList[problem + 1].en.toUpperCase(), saveIndexShow));
     } else {
       setScoreModal(true);
     }
@@ -40,7 +46,25 @@ const FillInScreen = (props) => {
         listToShow[i] = item[i];
       }
     }
-    return listToShow;
+    return [listToShow, listToShow, listIndexToShow];
+  };
+
+  const guessRandom = (item, listIndexToShow) => {
+    const listNotShow = [];
+    const listAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    let i; let j;
+    for (i = 0; i < item.length; i++) {
+      if (!listIndexToShow.includes(i)) listNotShow.push(item[i]);
+    }
+    console.log('---------------------');
+    console.log(`item ${item}`);
+    console.log(`listIndexToShow ${listIndexToShow}`);
+    console.log(`Real: ${listNotShow}`);
+    while (listNotShow.length < 9) {
+      listNotShow.push(listAlphabet[Math.floor(Math.random() * listAlphabet.length)]);
+    }
+    console.log(`Random: ${listNotShow}`);
+    return shuffle(listNotShow);
   };
 
   const questionList = [
@@ -66,7 +90,14 @@ const FillInScreen = (props) => {
   const [ScoreModal, setScoreModal] = useState(false);
   const [questionText, setQuestionText] = useState(questionList[problem].th);
   const [answerText, setAnswerText] = useState((questionList[problem].en.toUpperCase()).split(''));
-  const [answerShow, setAnswerShow] = useState(randomShow(questionList[problem].en.toUpperCase()));
+  const [answerBox, hint, indexShow] = randomShow(questionList[problem].en.toUpperCase());
+  const [answerShow, setAnswerShow] = useState(answerBox);
+  const [saveHint, setSaveHint] = useState(hint);
+  const [saveIndexShow, setSaveIndexShow] = useState(indexShow);
+  const [guessList, SetGuessList] = useState(guessRandom(questionList[problem].en.toUpperCase(), saveIndexShow));
+  const [checkTouch, setCheckTouch] = useState(Array(9).fill(false));
+
+  console.log(`Guess: ${guessList}`);
 
   return (
     <View style={styles.screen}>
@@ -108,26 +139,30 @@ const FillInScreen = (props) => {
             <Text style={styles.toolText}>ข้าม</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.resetField}>
-            <Text style={styles.toolText}>รีเซ็ท</Text>
+            <Text style={styles.toolText} onPress={() => setAnswerShow(saveHint)}>รีเซ็ท</Text>
           </TouchableOpacity>
         </View>
       </View>
       <View style={styles.bottomField}>
-        <View>
-          <TouchableOpacity style={styles.guessBox}><Text style={styles.guessText}>C</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.guessBox}><Text style={styles.guessText}>K</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.guessBox}><Text style={styles.guessText}>B</Text></TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity style={styles.guessBox}><Text style={styles.guessText}>A</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.guessBox}><Text style={styles.guessText}>T</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.guessBox}><Text style={styles.guessText}>Z</Text></TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity style={styles.guessBox}><Text style={styles.guessText}>B</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.guessBox}><Text style={styles.guessText}>D</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.guessBox}><Text style={styles.guessText}>E</Text></TouchableOpacity>
-        </View>
+        {[guessList.slice(0, 3), guessList.slice(3, 6), guessList.slice(6, 9)].map((item) => (
+          <View>
+            {/* <TouchableOpacity
+              style={checkTouch ? styles.guessBoxTouch : styles.guessBox}
+              onPress={() => {
+                setAnswerShow(() => {
+                  const c = answerShow;
+                  c[0] = item[0];
+                  return c;
+                });
+              }}
+            >
+              <Text style={styles.guessText}>{item[0]}</Text> */}
+            {/* </TouchableOpacity> */}
+            <TouchableOpacity style={styles.guessBox}><Text style={styles.guessText}>{item[0]}</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.guessBox}><Text style={styles.guessText}>{item[1]}</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.guessBox}><Text style={styles.guessText}>{item[2]}</Text></TouchableOpacity>
+          </View>
+        ))}
       </View>
     </View>
   );
