@@ -9,6 +9,7 @@ import colors from '../constants/colors';
 
 // screens
 import MyVocab from '../screens/MyVocab';
+import Edit from '../screens/Edit';
 
 const MyVocabStack = (props) => {
   const LocateData = useRecoilValue(Locate);
@@ -32,6 +33,14 @@ const MyVocabStack = (props) => {
               />
             </HeaderButtons>
           ),
+        }}
+      />
+      <Stack.Screen
+        name="Edit"
+        component={Edit}
+        options={{
+          title: 'Edit',
+          headerStyle: { backgroundColor: colors.primary },
         }}
       />
     </Stack.Navigator>

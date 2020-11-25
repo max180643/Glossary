@@ -45,6 +45,10 @@ const MyVocab = (props) => {
     props.navigation.navigate('Detail', { item });
   };
 
+  const handleEdit = (item) => {
+    props.navigation.navigate('Edit', { item });
+  };
+
   return (
     <Layout style={styles.container} locate={LocateData} refresh={CreateRefreshData}>
       {Loading ? <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner size="large" style={{ borderColor: colors.primary }} /></Layout> : []}
@@ -58,6 +62,7 @@ const MyVocab = (props) => {
                 item={item}
                 handleReload={handleReload}
                 handleDetail={handleDetail}
+                handleEdit={handleEdit}
               />
             )}
             keyExtractor={(item) => item.id.toString()}

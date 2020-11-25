@@ -11,7 +11,9 @@ import colors from '../../constants/colors';
 import EvaIcon from '../EvaIcon';
 import i18n from '../../lang/i18n';
 
-const MyVocabList = ({ item, handleReload, handleDetail }) => {
+const MyVocabList = ({
+  item, handleReload, handleDetail, handleEdit,
+}) => {
   const handleDelete = () => {
     Alert.alert(
       i18n.t('MyVocab.DeleteTitle'),
@@ -49,10 +51,14 @@ const MyVocabList = ({ item, handleReload, handleDetail }) => {
             <Text style={{ maxWidth: wp('48%'), fontSize: 18, marginLeft: 5 }} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
           </Layout>
           <Layout style={styles.buttonDetail}>
-            <TouchableOpacity style={styles.button} onPress={() => handleDelete()}>
+            <TouchableOpacity style={styles.button} onPress={() => handleDelete()} delayPressIn={0}>
               <Text style={styles.textButton}>{i18n.t('MyVocab.Delete')}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handleEdit(item)}
+              delayPressIn={0}
+            >
               <Text style={styles.textButton}>{i18n.t('MyVocab.Edit')}</Text>
             </TouchableOpacity>
           </Layout>
