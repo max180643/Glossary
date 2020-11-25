@@ -4,12 +4,17 @@ import {
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import { useRecoilValue } from 'recoil';
 import colors from '../../constants/colors';
 import CustomHeaderButton from '../../components/navigations/CustomHeaderButton';
+import i18n from '../../lang/i18n';
+import { Locate } from '../../states/atom';
 
 const ChoiceScreen = (props) => {
   const { route } = props;
-  const { data, VocabData } = route.params;
+  const { VocabData } = route.params;
+
+  const LocateData = useRecoilValue(Locate);
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -69,24 +74,25 @@ const ChoiceScreen = (props) => {
   );
 
   return (
-    <View style={styles.screen}>
+    <View style={styles.screen} locate={LocateData}>
       <Modal
         animationType="slide"
         transparent
         visible={ScoreModal}
       >
         <View style={styles.scoreModal}>
-          <Text style={styles.mTitleText}>Congrat</Text>
-          <Text style={styles.mSubTitleText}>Your Score</Text>
+          <Text style={styles.mTitleText}>{i18n.t('GameModal.Congrat')}</Text>
+          <Text style={styles.mSubTitleText}>{i18n.t('GameModal.Score')}</Text>
           <Text style={styles.mScoreText}>
             {score}
-            /5
+            /
+            {VocabData.length}
           </Text>
           <TouchableOpacity
             style={styles.homeButton}
             onPress={() => props.navigation.goBack()}
           >
-            <Text style={styles.homeText}>Back To Home</Text>
+            <Text style={styles.homeText}>{i18n.t('GameModal.End')}</Text>
           </TouchableOpacity>
         </View>
       </Modal>

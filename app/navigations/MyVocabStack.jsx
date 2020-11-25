@@ -39,7 +39,7 @@ const MyVocabStack = (props) => {
         name="Edit"
         component={Edit}
         options={{
-          title: 'Edit',
+          title: i18n.t('Edit.Title'),
           headerStyle: { backgroundColor: colors.primary },
         }}
       />

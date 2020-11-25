@@ -61,7 +61,7 @@ const MainStack = (props) => {
         name="Detail"
         component={Detail}
         options={{
-          title: 'Detail',
+          title: i18n.t('Detail.Title'),
           headerStyle: { backgroundColor: colors.primary },
         }}
       />
@@ -69,7 +69,7 @@ const MainStack = (props) => {
         name="Game"
         component={Game}
         options={{
-          title: 'Game',
+          title: i18n.t('Game.Title'),
           headerStyle: { backgroundColor: colors.primary },
         }}
       />
@@ -77,7 +77,7 @@ const MainStack = (props) => {
         name="Practice"
         component={Practice}
         options={{
-          title: 'Practice',
+          title: i18n.t('Practice.Title'),
           headerStyle: { backgroundColor: colors.primary },
         }}
       />
@@ -85,7 +85,7 @@ const MainStack = (props) => {
         name="Choice"
         component={Choice}
         options={{
-          title: 'Choice',
+          title: i18n.t('Game.Choice'),
           headerStyle: { backgroundColor: colors.primary },
         }}
       />
@@ -93,7 +93,7 @@ const MainStack = (props) => {
         name="FlashCard"
         component={FlashCard}
         options={{
-          title: 'FlashCard',
+          title: i18n.t('Game.FlashCard'),
           headerStyle: { backgroundColor: colors.primary },
         }}
       />
@@ -101,7 +101,7 @@ const MainStack = (props) => {
         name="FillIn"
         component={FillIn}
         options={{
-          title: 'FillIn',
+          title: i18n.t('Game.FillIn'),
           headerStyle: { backgroundColor: colors.primary },
         }}
       />
@@ -109,7 +109,7 @@ const MainStack = (props) => {
         name="Charades"
         component={Charades}
         options={{
-          title: 'Charades',
+          title: i18n.t('Game.Charades'),
           headerStyle: { backgroundColor: colors.primary },
         }}
       />

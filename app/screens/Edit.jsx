@@ -79,10 +79,10 @@ const Create = (props) => {
       });
     } else if (GlossaryList.length < 5) {
       Alert.alert(
-        i18n.t('CreateGlossary.Alert'),
-        i18n.t('CreateGlossary.Below'),
+        i18n.t('Edit.Alert'),
+        i18n.t('Edit.Below'),
         [
-          { text: i18n.t('CreateGlossary.OK') },
+          { text: i18n.t('Edit.OK') },
         ],
       );
     }
@@ -90,14 +90,14 @@ const Create = (props) => {
 
   const editAlert = () => {
     Alert.alert(
-      'Edit Glossary',
-      'Are you sure you want to edit?',
+      i18n.t('Edit.EditAlert'),
+      i18n.t('Edit.EditAlertMsg'),
       [
         {
-          text: 'Cancel',
+          text: i18n.t('Edit.Cancel'),
           style: 'cancel',
         },
-        { text: 'Edit', onPress: () => updateGlossary() },
+        { text: i18n.t('Edit.Edit'), onPress: () => updateGlossary() },
       ],
       { cancelable: false },
     );
@@ -105,15 +105,15 @@ const Create = (props) => {
 
   const removeWord = (index) => {
     Alert.alert(
-      i18n.t('CreateGlossary.DeleteTitle'),
-      i18n.t('CreateGlossary.DeleteMsg'),
+      i18n.t('Edit.DeleteTitle'),
+      i18n.t('Edit.DeleteMsg'),
       [
         {
-          text: i18n.t('CreateGlossary.Cancel'),
+          text: i18n.t('Edit.Cancel'),
           style: 'cancel',
         },
         {
-          text: i18n.t('CreateGlossary.Delete'),
+          text: i18n.t('Edit.Delete'),
           onPress: () => {
             const GlossaryArray = GlossaryList;
             const TempSlice1 = GlossaryArray.slice(0, index);
@@ -146,7 +146,7 @@ const Create = (props) => {
               <Input
                 status="info"
                 style={{ width: wp('70%') }}
-                placeholder={i18n.t('CreateGlossary.Name')}
+                placeholder={i18n.t('Edit.Name')}
                 accessoryRight={() => (
                   <EvaIcon color={colors.primary} name="book-open-outline" size={22} />
                 )}
@@ -161,7 +161,7 @@ const Create = (props) => {
                 maxLength={200}
                 status="info"
                 style={{ width: wp('70%'), maxHeight: hp('12%') }}
-                placeholder={i18n.t('CreateGlossary.Description')}
+                placeholder={i18n.t('Edit.Description')}
                 accessoryRight={() => (
                   <EvaIcon color={colors.primary} name="file-text-outline" size={22} />
                 )}
@@ -170,12 +170,12 @@ const Create = (props) => {
                 disabled
               />
             </Layout>
-            <Text style={{ alignSelf: 'center', marginBottom: hp('1%') }} category="h5">{i18n.t('CreateGlossary.Word')}</Text>
+            <Text style={{ alignSelf: 'center', marginBottom: hp('1%') }} category="h5">{i18n.t('Edit.Word')}</Text>
             <Layout style={styles.textDetail}>
               <Input
                 status="info"
                 style={{ width: wp('70%'), maxHeight: hp('12%') }}
-                placeholder={i18n.t('CreateGlossary.Word')}
+                placeholder={i18n.t('Edit.Word')}
                 accessoryRight={() => (
                   <EvaIcon color={colors.primary} name="book-outline" size={22} />
                 )}
@@ -188,7 +188,7 @@ const Create = (props) => {
               <Input
                 status="info"
                 style={{ width: wp('70%'), maxHeight: hp('12%') }}
-                placeholder={i18n.t('CreateGlossary.Meaning')}
+                placeholder={i18n.t('Edit.Meaning')}
                 accessoryRight={() => (
                   <EvaIcon color={colors.primary} name="text-outline" size={22} />
                 )}
@@ -218,7 +218,7 @@ const Create = (props) => {
                 alignSelf: 'center', backgroundColor: colors.primary, borderRadius: 10, padding: 15, margin: 10,
               }}
             >
-              <Text>แก้ไข</Text>
+              <Text>{i18n.t('Edit.Edit')}</Text>
             </TouchableOpacity>
           </ScrollView>
         )

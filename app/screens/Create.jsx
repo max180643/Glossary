@@ -87,14 +87,14 @@ const Create = (props) => {
 
   const createAlert = () => {
     Alert.alert(
-      'Create Glossary',
-      'Are you sure you want to create?',
+      i18n.t('CreateGlossary.CreateAlert'),
+      i18n.t('CreateGlossary.CreateMsg'),
       [
         {
-          text: 'Cancel',
+          text: i18n.t('CreateGlossary.Cancel'),
           style: 'cancel',
         },
-        { text: 'Create', onPress: () => createGlossary() },
+        { text: i18n.t('CreateGlossary.Create'), onPress: () => createGlossary() },
       ],
       { cancelable: false },
     );

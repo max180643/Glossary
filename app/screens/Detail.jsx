@@ -7,14 +7,19 @@ import {
 } from '@ui-kitten/components';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { useRecoilValue } from 'recoil';
 import IconImage from '../assets/profile.png';
 import colors from '../constants/colors';
 import EvaIcon from '../components/EvaIcon';
 import CustomHeaderButton from '../components/navigations/CustomHeaderButton';
+import i18n from '../lang/i18n';
+import { Locate } from '../states/atom';
 
 const Detail = (props) => {
   const { route } = props;
   const data = route.params.item;
+
+  const LocateData = useRecoilValue(Locate);
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -31,7 +36,7 @@ const Detail = (props) => {
   }, []);
 
   return (
-    <Layout style={styles.container}>
+    <Layout style={styles.container} locate={LocateData}>
       <Layout style={styles.flexRow}>
         <Layout style={styles.card}>
           <Layout style={styles.imageDetail}>
@@ -71,10 +76,10 @@ const Detail = (props) => {
       </Layout>
       <Layout style={styles.buttonDetail}>
         <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Practice', { data })} delayPressIn={0}>
-          <Text style={{ fontSize: 16 }}>ฝึกฝน</Text>
+          <Text style={{ fontSize: 16 }}>{i18n.t('Detail.Practice')}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Game', { data })} delayPressIn={0}>
-          <Text style={{ fontSize: 16 }}>เล่นเกม</Text>
+          <Text style={{ fontSize: 16 }}>{i18n.t('Detail.Game')}</Text>
         </TouchableOpacity>
       </Layout>
     </Layout>

@@ -8,6 +8,7 @@ import MyVocabList from '../components/MyVocab/MyVocabList';
 import { Locate, CreateRefresh } from '../states/atom';
 import { UserID } from '../states/auth';
 import colors from '../constants/colors';
+import i18n from '../lang/i18n';
 
 const MyVocab = (props) => {
   const LocateData = useRecoilValue(Locate);
@@ -72,7 +73,7 @@ const MyVocab = (props) => {
         )
         : []}
 
-      {!Loading && MyGlossary.length === 0 ? <Layout style={{ flex: 1, justifyContent: 'center' }}><Text>ไม่พบชุดคำศัพท์</Text></Layout> : []}
+      {!Loading && MyGlossary.length === 0 ? <Layout style={{ flex: 1, justifyContent: 'center' }}><Text>{i18n.t('MyVocab.NoGlossary')}</Text></Layout> : []}
 
     </Layout>
   );

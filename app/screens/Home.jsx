@@ -7,7 +7,7 @@ import {
 } from '@ui-kitten/components';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import axios from 'axios';
 import Constants from 'expo-constants';
 import { Locate, Search } from '../states/atom';

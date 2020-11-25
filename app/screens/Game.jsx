@@ -7,8 +7,11 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import axios from 'axios';
 import Constants from 'expo-constants';
+import { useRecoilValue } from 'recoil';
 import colors from '../constants/colors';
 import CustomHeaderButton from '../components/navigations/CustomHeaderButton';
+import i18n from '../lang/i18n';
+import { Locate } from '../states/atom';
 
 const MyVocabList = (props) => {
   const { route } = props;
@@ -16,6 +19,8 @@ const MyVocabList = (props) => {
 
   const [Loading, setLoading] = useState(true);
   const [VocabData, setVocabData] = useState([]);
+
+  const LocateData = useRecoilValue(Locate);
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -37,7 +42,7 @@ const MyVocabList = (props) => {
   }, []);
 
   return (
-    <Layout style={styles.container}>
+    <Layout style={styles.container} locate={LocateData}>
       {Loading ? <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner size="large" style={{ borderColor: colors.primary }} /></Layout> : []}
 
       {!Loading
@@ -46,28 +51,28 @@ const MyVocabList = (props) => {
             <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('Choice', { data, VocabData })}>
               <Layout style={styles.card}>
                 <Layout style={styles.choice}>
-                  <Text style={{ fontSize: 30 }}>ตัวเลือก</Text>
+                  <Text style={{ fontSize: 30 }}>{i18n.t('Game.Choice')}</Text>
                 </Layout>
               </Layout>
             </TouchableOpacity>
             <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('FlashCard', { data, VocabData })}>
               <Layout style={styles.card}>
                 <Layout style={styles.choice}>
-                  <Text style={{ fontSize: 30 }}>เปิดคำศัพท์</Text>
+                  <Text style={{ fontSize: 30 }}>{i18n.t('Game.FlashCard')}</Text>
                 </Layout>
               </Layout>
             </TouchableOpacity>
             <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('FillIn', { data, VocabData })}>
               <Layout style={styles.card}>
                 <Layout style={styles.choice}>
-                  <Text style={{ fontSize: 30 }}>เติมคำ</Text>
+                  <Text style={{ fontSize: 30 }}>{i18n.t('Game.FillIn')}</Text>
                 </Layout>
               </Layout>
             </TouchableOpacity>
             <TouchableOpacity delayPressIn={0} onPress={() => props.navigation.navigate('Charades', { data, VocabData })}>
               <Layout style={styles.card}>
                 <Layout style={styles.choice}>
-                  <Text style={{ fontSize: 30 }}>ทายคำ</Text>
+                  <Text style={{ fontSize: 30 }}>{i18n.t('Game.Charades')}</Text>
                 </Layout>
               </Layout>
             </TouchableOpacity>

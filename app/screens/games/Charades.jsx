@@ -5,9 +5,12 @@ import {
 import { DeviceMotion } from 'expo-sensors';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import { useRecoilValue } from 'recoil';
 import CustomHeaderButton from '../../components/navigations/CustomHeaderButton';
 import EvaIcon from '../../components/EvaIcon';
 import colors from '../../constants/colors';
+import i18n from '../../lang/i18n';
+import { Locate } from '../../states/atom';
 
 // screen status
 // [1] waiting, [2] playing, [3] finish
@@ -16,8 +19,10 @@ const Charades = (props) => {
   const { route } = props;
   const { VocabData } = route.params;
 
+  const LocateData = useRecoilValue(Locate);
+
   const [status, setStatus] = useState('waiting');
-  const [displayText, setDisplayText] = useState('หันจอไปทางเพื่อน');
+  const [displayText, setDisplayText] = useState(i18n.t('Charades.Guide'));
   const [displayTextSmall, setDisplayTextSmall] = useState('');
   const [check, setCheck] = useState(null);
 
@@ -54,8 +59,8 @@ const Charades = (props) => {
   const gameStart = (event) => {
     const getPosition = event.accelerationIncludingGravity;
     if (checkFinish[0]) { DeviceMotion.removeAllListeners(); } else {
-      if (getPosition.z >= 6 && check !== 'pass') { setCheck('pass'); setDisplayText('ถูกต้อง'); setDisplayTextSmall(''); setScore(score + 1); }
-      if (getPosition.z <= -6 && check !== 'skip') { setCheck('skip'); setDisplayText('ข้าม'); setDisplayTextSmall(''); }
+      if (getPosition.z >= 6 && check !== 'pass') { setCheck('pass'); setDisplayText(i18n.t('Charades.Correct')); setDisplayTextSmall(''); setScore(score + 1); }
+      if (getPosition.z <= -6 && check !== 'skip') { setCheck('skip'); setDisplayText(i18n.t('Charades.Skip')); setDisplayTextSmall(''); }
       if (getPosition.z > -6 && getPosition.z < 6 && check !== 'reset') { setCheck('reset'); skipWord(); }
     }
 
@@ -120,17 +125,18 @@ const Charades = (props) => {
           visible={ScoreModal}
         >
           <View style={styles.scoreModal}>
-            <Text style={styles.mTitleText}>Congrat</Text>
-            <Text style={styles.mSubTitleText}>Your Score</Text>
+            <Text style={styles.mTitleText}>{i18n.t('GameModal.Congrat')}</Text>
+            <Text style={styles.mSubTitleText}>{i18n.t('GameModal.Score')}</Text>
             <Text style={styles.mScoreText}>
               {score}
-              /5
+              /
+              {VocabData.length}
             </Text>
             <TouchableOpacity
               style={styles.homeButton}
               onPress={() => props.navigation.goBack()}
             >
-              <Text style={styles.homeText}>Back To Home</Text>
+              <Text style={styles.homeText}>{i18n.t('GameModal.End')}</Text>
             </TouchableOpacity>
           </View>
         </Modal>
@@ -194,7 +200,7 @@ const Charades = (props) => {
   });
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} locate={LocateData}>
       <Content />
     </View>
   );

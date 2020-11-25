@@ -25,7 +25,8 @@
     "DeleteTitle": "คุณแน่ใจหรือไม่ว่าต้องการลบ?",
     "DeleteMsg": "ชุดคำศัพท์:",
     "CancelButton": "ยกเลิก",
-    "DeleteButton": "ลบ"
+    "DeleteButton": "ลบ",
+    "NoGlossary": "ไม่พบชุดคำศัพท์"
   },
   "CreateGlossary": {
     "Title": "สร้างชุดคำศัพท์",
@@ -42,10 +43,62 @@
     "DeleteTitle": "คุณแน่ใจหรือไม่ว่าต้องการลบ?",
     "DeleteMsg": "",
     "Cancel": "ยกเลิก",
-    "Delete": "ลบ"
+    "Delete": "ลบ",
+    "CreateAlert": "สร้างชุดคำศัพท์",
+    "CreateMsg": "คุณแน่ใจหรือไม่ว่าต้องการสร้าง?"
   },
   "NoPermission": {
     "Title": "ต้องเข้าสู่ระบบ",
     "Msg": "กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ !"
+  },
+  "Practice": {
+    "Title": "ฝึกฝน"
+  },
+  "Detail": {
+    "Title": "รายละเอียด",
+    "Practice": "ฝึกฝน",
+    "Game": "เล่นเกม"
+  },
+  "Game": {
+    "Title": "เกม",
+    "Choice": "ตัวเลือก",
+    "FlashCard": "เปิดคำศัพท์",
+    "FillIn": "เติมคำ",
+    "Charades": "ทายคำ"
+  },
+  "Edit": {
+    "Title": "แก้ไข",
+    "Alert": "คำเตือน!",
+    "Below": "คำศัพท์ต้องมีขั้นต่ำ 5 ชุด",
+    "OK": "ตกลง",
+    "EditAlert": "แก้ไขชุดคำศัพท์",
+    "EditAlertMsg": "คุณแน่ใจหรือไม่ว่าต้องการแก้ไข?",
+    "Cancel": "ยกเลิก",
+    "Edit": "แก้ไข",
+    "DeleteTitle": "คุณแน่ใจหรือไม่ว่าต้องการลบ?",
+    "DeleteMsg": "",
+    "Delete": "ลบ",
+    "Name": "ชื่อชุดคำศัพท์",
+    "Description": "คำอธิบาย",
+    "Word": "คำศัพท์",
+    "Meaning": "คำแปล"
+  },
+  "GameModal": {
+    "Congrat": "ยินดีด้วย",
+    "Score": "คะแนนของคุณ",
+    "End": "จบเกม"
+  },
+  "FlashCard": {
+    "Correct": "ตอบถูก",
+    "SkipWrong": "ข้าม หรือ ตอบผิด"
+  },
+  "FillIn": {
+    "Skip": "ข้าม",
+    "Reset": "รีเซ็ท"
+  },
+  "Charades": {
+    "Guide": "หันจอไปทางเพื่อน",
+    "Correct": "ถูกต้อง",
+    "Skip": "ข้าม"
   }
 }
