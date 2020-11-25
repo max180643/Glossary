@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { Avatar, Text, Icon } from '@ui-kitten/components';
 import { useRecoilValue } from 'recoil';
-import { IsLogin, UserName, UserPicture } from '../states/auth';
+import Constants from 'expo-constants';
+import axios from 'axios';
+import {
+  IsLogin, UserName, UserPicture, UserID,
+} from '../states/auth';
 import { Locate } from '../states/atom';
 import ProfileImage from '../assets/profile.png';
 import LoginButton from '../components/navigations/LoginButton';
@@ -19,6 +23,19 @@ const CustomDrawerContent = (props) => {
   const UserNameData = useRecoilValue(UserName);
   const UserPictureData = useRecoilValue(UserPicture);
   const LocateData = useRecoilValue(Locate);
+  const UserIDData = useRecoilValue(UserID);
+
+  const [TotalGlossary, SetTotalGlossary] = useState(0);
+  const [TotalLike, SetTotalLike] = useState(0);
+
+  useEffect(() => {
+    axios.get(`${Constants.manifest.extra.URL_API}/api/data/glossary?id=${UserIDData}`).then((res) => {
+      SetTotalGlossary(res.data.response.length);
+      let like = 0;
+      res.data.response.forEach((item) => like += item.like.length);
+      SetTotalLike(like);
+    });
+  }, [IsLoginData]);
 
   return (
     <View style={{ flex: 1 }} locate={LocateData}>
@@ -44,7 +61,7 @@ const CustomDrawerContent = (props) => {
                     {' '}
                     {i18n.t('Navigation.Total')}
                   </Text>
-                  <Text category="s1">0</Text>
+                  <Text category="s1">{TotalGlossary}</Text>
                 </View>
                 <View style={styles.like}>
                   <Text category="h6" style={{ marginBottom: 5 }}>
@@ -52,7 +69,7 @@ const CustomDrawerContent = (props) => {
                     {' '}
                     {i18n.t('Navigation.Like')}
                   </Text>
-                  <Text category="s1">0</Text>
+                  <Text category="s1">{TotalLike}</Text>
                 </View>
               </View>
               )}
