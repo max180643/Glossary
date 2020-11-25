@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 10,
     backgroundColor: colors.primary,
-    opacity: 0.25,
+    //opacity: 0.25,
   },
   guessText: {
     fontWeight: 'bold',
