@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Alert } from 'react-native';
 import { DrawerItem } from '@react-navigation/drawer';
 import { Icon } from '@ui-kitten/components';
 import { useSetRecoilState } from 'recoil';
@@ -14,6 +14,21 @@ const LogoutButton = () => {
   const setUserName = useSetRecoilState(UserName);
   const setUserPicture = useSetRecoilState(UserPicture);
 
+  const LogoutAlert = () => {
+    Alert.alert(
+      'Sign Out',
+      'Are you sure you want to sign out',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        { text: 'Sign Out', style: 'destructive', onPress: () => Logout() },
+      ],
+      { cancelable: false },
+    );
+  };
+
   const Logout = () => {
     setIsLogin(false);
     setUserID(null);
@@ -24,7 +39,7 @@ const LogoutButton = () => {
   return (
     <DrawerItem
       label={i18n.t('Navigation.SignOut')}
-      onPress={() => Logout()}
+      onPress={() => LogoutAlert()}
       icon={({ color }) => (
         <Icon
           style={styles.icon}

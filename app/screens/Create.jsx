@@ -85,6 +85,21 @@ const Create = (props) => {
     }
   };
 
+  const createAlert = () => {
+    Alert.alert(
+      'Create Glossary',
+      'Are you sure you want to create?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        { text: 'Create', onPress: () => createGlossary() },
+      ],
+      { cancelable: false },
+    );
+  };
+
   const removeWord = (index) => {
     Alert.alert(
       i18n.t('CreateGlossary.DeleteTitle'),
@@ -198,7 +213,7 @@ const Create = (props) => {
             </Layout>
             <TouchableOpacity
               delayPressIn={0}
-              onPress={() => createGlossary()}
+              onPress={() => createAlert()}
               style={{
                 alignSelf: 'center', backgroundColor: colors.primary, borderRadius: 10, padding: 15, margin: 10,
               }}

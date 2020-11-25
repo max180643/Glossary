@@ -85,15 +85,22 @@ const Create = (props) => {
           { text: i18n.t('CreateGlossary.OK') },
         ],
       );
-    } else {
-      Alert.alert(
-        i18n.t('CreateGlossary.Alert'),
-        i18n.t('CreateGlossary.Complete'),
-        [
-          { text: i18n.t('CreateGlossary.OK') },
-        ],
-      );
     }
+  };
+
+  const editAlert = () => {
+    Alert.alert(
+      'Edit Glossary',
+      'Are you sure you want to edit?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        { text: 'Edit', onPress: () => updateGlossary() },
+      ],
+      { cancelable: false },
+    );
   };
 
   const removeWord = (index) => {
@@ -206,7 +213,7 @@ const Create = (props) => {
             </Layout>
             <TouchableOpacity
               delayPressIn={0}
-              onPress={() => updateGlossary()}
+              onPress={() => editAlert()}
               style={{
                 alignSelf: 'center', backgroundColor: colors.primary, borderRadius: 10, padding: 15, margin: 10,
               }}
