@@ -149,8 +149,8 @@ const FillInScreen = (props) => {
           <Text style={styles.questionText}>{questionText}</Text>
         </View>
         <View style={styles.answerField}>
-          {answerShow.map((item) => (
-            <View style={item !== '' ? styles.answerBoxEnable : styles.answerBoxDisable}>
+          {answerShow.map((item, index) => (
+            <View style={item !== '' ? styles.answerBoxEnable : styles.answerBoxDisable} key={`${item}${index}`}>
               <Text style={styles.answerText}>{item}</Text>
             </View>
           ))}
@@ -176,7 +176,7 @@ const FillInScreen = (props) => {
       <View style={styles.bottomField}>
         {
         [guessList.slice(0, 3), guessList.slice(3, 6), guessList.slice(6, 9)].map((item, index) => (
-          <View>
+          <View key={`${item}${index}`}>
             <TouchableOpacity
               style={checkGuessTouch[0] ? styles.guessBoxTouch : styles.guessBox}
               onPress={() => {
@@ -306,7 +306,8 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 10,
     backgroundColor: colors.primary,
-    //opacity: 0.25,
+
+    // opacity: 0.25,
   },
   guessText: {
     fontWeight: 'bold',
