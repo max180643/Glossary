@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity,
+  View, Text, StyleSheet, TouchableOpacity, Modal,
 } from 'react-native';
 import { DeviceMotion } from 'expo-sensors';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -22,6 +22,10 @@ const Charades = (props) => {
   const [check, setCheck] = useState(null);
 
   const [word, setWord] = useState(VocabData);
+
+  const [score, setScore] = useState(0);
+  const [ScoreModal, setScoreModal] = useState(true);
+  const [checkFinish, setCheckFinish] = useState([false]);
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -49,14 +53,19 @@ const Charades = (props) => {
 
   const gameStart = (event) => {
     const getPosition = event.accelerationIncludingGravity;
-    if (getPosition.z >= 6 && check !== 'pass') { setCheck('pass'); setDisplayText('ถูกต้อง'); setDisplayTextSmall(''); }
-    if (getPosition.z <= -6 && check !== 'skip') { setCheck('skip'); setDisplayText('ข้าม'); setDisplayTextSmall(''); }
-    if (getPosition.z > -6 && getPosition.z < 6 && check !== 'reset') { setCheck('reset'); skipWord(); }
-    console.log(`z: ${getPosition.z}, ${check}, ${displayText}, ${status}`);
+    if (checkFinish[0]) { DeviceMotion.removeAllListeners(); } else {
+      if (getPosition.z >= 6 && check !== 'pass') { setCheck('pass'); setDisplayText('ถูกต้อง'); setDisplayTextSmall(''); setScore(score + 1); }
+      if (getPosition.z <= -6 && check !== 'skip') { setCheck('skip'); setDisplayText('ข้าม'); setDisplayTextSmall(''); }
+      if (getPosition.z > -6 && getPosition.z < 6 && check !== 'reset') { setCheck('reset'); skipWord(); }
+    }
+
+    // console.log(`z: ${getPosition.z}, ${check}, ${displayText}, ${status}, State: ${checkFinish[0]}`);
   };
 
   const checkDeviceRotate = (event) => {
-    if (event.orientation === -90) {
+    if (checkFinish[0]) {
+      DeviceMotion.removeAllListeners();
+    } else if (event.orientation === -90 && !checkFinish[0]) {
       DeviceMotion.removeAllListeners();
       DeviceMotion.addListener(gameStart);
       DeviceMotion.setUpdateInterval(100);
@@ -103,9 +112,28 @@ const Charades = (props) => {
       );
     }
     if (status === 'finish') {
-      DeviceMotion.removeAllListeners();
+      checkFinish[0] = true;
       return (
-        <Text>จบเกม</Text>
+        <Modal
+          animationType="slide"
+          transparent
+          visible={ScoreModal}
+        >
+          <View style={styles.scoreModal}>
+            <Text style={styles.mTitleText}>Congrat</Text>
+            <Text style={styles.mSubTitleText}>Your Score</Text>
+            <Text style={styles.mScoreText}>
+              {score}
+              /5
+            </Text>
+            <TouchableOpacity
+              style={styles.homeButton}
+              onPress={() => props.navigation.goBack()}
+            >
+              <Text style={styles.homeText}>Back To Home</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
       );
     }
     return null;
@@ -131,6 +159,37 @@ const Charades = (props) => {
       backgroundColor: colors.secondary,
       padding: 10,
       borderRadius: 5,
+    },
+
+    scoreModal: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'white',
+    },
+    mTitleText: {
+      fontSize: RFPercentage(10),
+      fontWeight: 'bold',
+      marginBottom: 25,
+    },
+    mSubTitleText: {
+      fontSize: RFPercentage(3),
+      fontWeight: 'bold',
+    },
+    mScoreText: {
+      fontSize: RFPercentage(12),
+      fontWeight: 'bold',
+    },
+    homeButton: {
+      borderRadius: 10,
+      marginTop: 20,
+      padding: 10,
+      backgroundColor: colors.primary,
+    },
+    homeText: {
+      fontWeight: 'bold',
+      fontSize: RFPercentage(3),
+      color: 'white',
     },
   });
 
