@@ -81,8 +81,8 @@ const Charades = (props) => {
   };
 
   const screenColor = (e) => {
-    if (e === 'pass') return 'green';
-    if (e === 'skip') return 'orange';
+    if (e === 'pass') return colors.correct;
+    if (e === 'skip') return colors.incorrect;
     return 'white';
   };
 
